@@ -61,17 +61,15 @@ class App
 
     protected function processFile($uri)
     {
-        if (strpos($uri, '.js') !== false || strpos($uri, '.css') !== false) {
-            require_once '../dist' . $uri;
+        if (strpos($uri, '.js') !== false || strpos($uri, '.css') !== false || strpos($uri, '.ico') !== false) {
+            require_once '../source/assets' . $uri;
             exit;
         }
 
         if (strpos($uri, '.png') !== false || strpos($uri, '.jpeg') !== false || strpos($uri, '.svg') !== false) {
-            require_once '../dist/img' . $uri;
+            require_once '../source/assets/img' . $uri;
             exit;
         }
-
-
 
         return;
     }
