@@ -61,14 +61,13 @@ class App
 
     protected function processFile($uri)
     {
-        if (strpos($uri, '.js') !== false || strpos($uri, '.css') !== false || strpos($uri, '.ico') !== false) {
-            require_once '../source/assets' . $uri;
-            exit;
-        }
+        $exts = ['.js', '.css', '.ico', '.png', '.jpeg', '.svg', '.pdf'];
 
-        if (strpos($uri, '.png') !== false || strpos($uri, '.jpeg') !== false || strpos($uri, '.svg') !== false) {
-            require_once '../source/assets/img' . $uri;
-            exit;
+        foreach ($exts as $ext) {
+            if (strpos($uri, $ext) !== false) {
+                require_once '../source/assets' . $uri;
+                exit;
+            }
         }
 
         return;

@@ -8,9 +8,6 @@ module.exports = {
             .rule('images')
             .use('url-loader')
             .tap(options => Object.assign({}, options, { name: 'img/[name].[ext]' }));
-        config.plugins.delete('html');
-        config.plugins.delete('preload');
-        config.plugins.delete('prefetch');
     },
     css: {
     extract: {

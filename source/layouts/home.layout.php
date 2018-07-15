@@ -11,6 +11,6 @@
 <body>
     <?php require_once $view; ?>
 
-    <script type="text/javascript"  src="app.js"></script>
+    <script type="text/javascript"  src="/js/app.js"></script>
 </body>
 </html>
