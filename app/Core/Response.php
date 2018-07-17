@@ -58,19 +58,19 @@ class Response
         exit;
     }
 
-    protected function addHeader($name, $value)
+    public function addHeader($name, $value)
     {
         $this->headers[] = [$name, $value];
         return $this;
     }
 
-    protected function addStatusCode($statusCode)
+    public function addStatusCode($statusCode)
     {
         $this->statusCode = $statusCode;
         return $this;
     }
 
-    protected function setHeaders()
+    public function setHeaders()
     {
         header(sprintf(
             '%s %s %s',

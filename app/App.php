@@ -78,10 +78,21 @@ class App
 
     protected function processFile($uri)
     {
-        $exts = ['.js', '.css', '.ico', '.png', '.jpeg', '.svg', '.pdf'];
+        $exts = [
+            'application/javascript' => '.js',
+            'text/css' => '.css',
+            'text/ico' => '.ico',
+            'image/png' => '.png',
+            'image/jpg' => '.jpg',
+            'image/jpeg' => '.jpeg',
+            'image/svg' => '.svg',
+            'application/pdf' => '.pdf'];
 
-        foreach ($exts as $ext) {
+        foreach ($exts as $type => $ext) {
             if (strpos($uri, $ext) !== false) {
+                $this->container->response->addHeader('Content-Type', $type);
+                $this->container->response->addStatusCode(200);
+                $this->container->response->setHeaders();
                 require_once '../source/assets' . $uri;
                 exit;
             }

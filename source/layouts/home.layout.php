@@ -6,18 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Api-Vue</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/style.css">
     <link as="script" href="/js/app.js" rel="preload">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-size: 14px;
-        }
-    </style>
 </head>
 <body>
     <?php require_once $view; ?>
