@@ -27,6 +27,18 @@ class App
         ]);
     }
 
+    public function import($files = array())
+    {
+        foreach ($files as $file) {
+            $file = '../routes/' . $file . '.php';
+            if (file_exists($file)) {
+                $app = $this;
+                return require_once $file;
+            }
+            throw new \Exception("Error Processing Request. Routes File Not Found", 1);
+        }
+    }
+
     public function get($uri, $handler, $method = 'GET')
     {
         $this->container->router->addRoute($uri, $handler, $method);
@@ -37,6 +49,11 @@ class App
     {
         $this->container->router->addRoute($uri, $handler, $method);
         return $this;
+    }
+
+    public function group($name)
+    {
+        //
     }
 
     public function run()
@@ -77,7 +94,7 @@ class App
     {
         $requestMethod = $this->container->request->getMethod();
         if ($route === false || $requestMethod !== $route['method']) {
-            $this->response()->view('errors/404', 404)->loadView();
+            $this->response()->view('errors/404', 404)->send();
         }
 
         $params = $this->container->request->getWebParams($path, $route);
