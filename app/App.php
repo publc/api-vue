@@ -93,7 +93,7 @@ class App
                 $this->container->response->addHeader('Content-Type', $type);
                 $this->container->response->addStatusCode(200);
                 $this->container->response->setHeaders();
-                require_once '../source/assets' . $uri;
+                require_once $uri;
                 exit;
             }
         }
