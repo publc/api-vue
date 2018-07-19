@@ -8,7 +8,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      img$: path.resolve(__dirname, 'source/img'),
+      '@img': path.resolve(__dirname, '../source/js/assets/img'),
     },
     extensions: ['.js', '.vue', '.scss']
   },

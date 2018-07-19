@@ -1,20 +1,11 @@
 <template>
     <nav class="navbar">
         <div>
-            <img class="logo" src="../../../assets/img/brand/logo.svg" alt="Logo Mira Que Lindo">
+            <img class="logo" src="@img/brand/logo.svg" alt="Logo Mira Que Lindo">
         </div>
         <ul class="navbar-menu">
-            <li class="navbar-item">
-                <router-link class="navbar-link" to="/seminarios">Seminarios</router-link>
-            </li>
-            <li class="navbar-item">
-                <router-link class="navbar-link" to="/productos">Productos</router-link>
-            </li>
-            <li class="navbar-item">
-                <router-link class="navbar-link" to="/nosotros">Nosotros</router-link>
-            </li>
-            <li class="navbar-item">
-                <router-link class="navbar-link" to="/contacto">Contacto</router-link>
+             <li class="navbar-item" v-for="(item, i) in navbarItems" :key="i">
+                <router-link class="navbar-link" :to="item.to">{{ item.title }}</router-link>
             </li>
         </ul>
     </nav>
@@ -23,6 +14,15 @@
 <script>
 export default {
     data() {
+        return {
+            navbarItems: [
+                {to: '/', title: 'Home'},
+                {to: '/seminarios', title: 'Seminarios'},
+                {to: '/productos', title: 'Productos'},
+                {to: '/nosotros', title: 'Nosotros'},
+                {to: '/contacto', title: 'Contacto'}
+            ]
+        }
     }
 }
 </script>
@@ -30,12 +30,14 @@ export default {
 <style lang="scss" scoped>
     .navbar {
         width: 100%;
-        height: 60px;
-        padding: 10px 50px;
+        height: 80px;
+        padding: 0 80px;
+        position: absolute;
         display: flex;
         flex-flow: row nowrap;
         justify-content: space-between;
         align-items: center;
+        z-index: 2000;
 
         .logo {
             height: 60px;

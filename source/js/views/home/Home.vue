@@ -1,10 +1,12 @@
 <template>
-    <div>
-        <mira-navbar></mira-navbar>
-        <div v-if="$route.path === '/'">
-            <mira-principal></mira-principal>
-        </div>
-        <router-view></router-view>
+    <div class="home-container">
+        <mira-navbar class="navbar"></mira-navbar>
+        <transition name='slide-fade'>
+            <mira-principal v-if="$route.path === '/'"></mira-principal>
+        </transition>
+        <transition name='slide-fade'>
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
@@ -19,7 +21,27 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss"scoped>
+
+    .home-container {
+        overflow: hidden;
+        height: calc(100vh - 80px);
+    }
+
+    .slide-fade-enter-active {
+        transition: transform .8s ease, opacity .8s ease;
+    }
+    .slide-fade-leave-active {
+        transition: transform .8s .25s cubic-bezier(.17,.67,.72,.11), opacity .8s .25s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter {
+        transform: translateY(600px);
+        opacity: 0;
+    }
+    .slide-fade-leave-to {
+        transform: translateY(-600px);
+        opacity: 0;
+    }
 
 
 </style>
