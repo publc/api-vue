@@ -33,10 +33,12 @@ class App
             $file = '../routes/' . $file . '.php';
             if (file_exists($file)) {
                 $app = $this;
-                return require_once $file;
+                require_once $file;
+            } else {
+                throw new \Exception("Error Processing Request. Routes File Not Found", 1);
             }
-            throw new \Exception("Error Processing Request. Routes File Not Found", 1);
         }
+        return;
     }
 
     public function get($uri, $handler, $method = 'GET')
@@ -65,6 +67,7 @@ class App
 
         $this->container->router->setPath($_SERVER['REQUEST_URI'] ?? '/');
         $path = $this->container->router->getPath();
+
         $route = $this->container->router->getRoute();
 
         $processor = explode('/', $uri);

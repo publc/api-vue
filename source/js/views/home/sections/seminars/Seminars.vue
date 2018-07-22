@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="seminars" rel="seminars-section--js">
         <h2>Seminars Section</h2>
         <p>Here is an seminars section</p>
     </section>
@@ -9,6 +9,6 @@
 <style scoped>
     section {
         background-color: blue;
-        height: 100vh;
+        height: 800px;
     }
 </style>

@@ -88,6 +88,16 @@ class Response
         return $this;
     }
 
+    public function mailTemplate($template, $data)
+    {
+        $file = '../source/views/mail/' . $template . '.template.php';
+        ob_start();
+        require_once $file;
+        $content = ob_get_clean();
+        ob_end_clean();
+        return $content;
+    }
+
     protected function addBody($body)
     {
         $this->body = json_encode($body);

@@ -1,48 +1,57 @@
 <template>
     <div class="home-container">
-        <mira-navbar class="navbar"></mira-navbar>
-        <transition name='slide-fade'>
-            <mira-principal v-if="$route.path === '/'"></mira-principal>
-        </transition>
-        <transition name='slide-fade'>
-            <router-view></router-view>
-        </transition>
+        <mira-navbar></mira-navbar>
+        <mira-principal></mira-principal>
+        <mira-seminars></mira-seminars>
+        <mira-products></mira-products>
+        <mira-about></mira-about>
+        <mira-contact></mira-contact>
+        <mira-contact-btn class="contact-btn" rel="contact-btn--js"></mira-contact-btn>
     </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue';
 import Principal from './sections/principal/Principal.vue';
+import Seminars from './sections/seminars/Seminars.vue';
+import Products from './sections/products/Products.vue';
+import About from './sections/about/About.vue';
+import Contact from './sections/contact/Contact.vue';
+import ContactBtn from './components/Contact.vue';
 export default {
     components: {
         'mira-navbar': Navbar,
-        'mira-principal': Principal
+        'mira-principal': Principal,
+        'mira-seminars': Seminars,
+        'mira-products': Products,
+        'mira-about': About,
+        'mira-contact': Contact,
+        'mira-contact-btn': ContactBtn
+    },
+    mounted() {
+        var contactBtn = document.querySelector('[rel=contact-btn--js]');
+        contactBtn.style.opacity = '0';
+        setTimeout(() => {
+            contactBtn.style.opacity = '1';
+        }, 3500);
     }
 }
 </script>
 
 <style lang="scss"scoped>
 
-    .home-container {
-        overflow: hidden;
-        height: calc(100vh - 80px);
+    .contact-btn {
+        position: fixed;
+        bottom: 2%;
+        right: 2%;
+        transition: opacity .5s ease-out;
     }
 
-    .slide-fade-enter-active {
-        transition: transform .8s ease, opacity .8s ease;
+    @media screen and (max-width: 780px) {
+        .contact-btn {
+            bottom: 10%;
+        }
     }
-    .slide-fade-leave-active {
-        transition: transform .8s .25s cubic-bezier(.17,.67,.72,.11), opacity .8s .25s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-    }
-    .slide-fade-enter {
-        transform: translateY(600px);
-        opacity: 0;
-    }
-    .slide-fade-leave-to {
-        transform: translateY(-600px);
-        opacity: 0;
-    }
-
 
 </style>
 
