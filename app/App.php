@@ -127,7 +127,8 @@ class App
         }
 
         $params = $this->container->request->getApiParams($path, $route);
-        $handler = '\App\Api\Controller\\' . $route['handler']['controller'];
+        $handler = '\App\Api\\' . $route['handler']['controller'];
+        var_dump($handler);
         $handler = new $handler();
         $callable = $route['handler']['proccesor'];
 

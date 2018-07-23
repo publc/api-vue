@@ -1,3 +1,3 @@
 <?php
 
-$app->post('/api/email', 'EmailController@send');
+$app->post('/api/email', 'Mail\APIEmail@send');
