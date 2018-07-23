@@ -1,9 +1,9 @@
 <template>
     <div>
-        <a class="network" href="https://www.facebook.com/miraquelindodeco/">
+        <a class="network" href="https://www.facebook.com/miraquelindodeco/" target="_blank">
             <i class="fab fa-facebook-f"></i>
         </a>
-        <a class="network" href="https://www.instagram.com/miraquelindodecoydiseno/">
+        <a class="network" href="https://www.instagram.com/miraquelindodecoydiseno/" target="_blank">
             <i class="fab fa-instagram"></i>
         </a>
     </div>

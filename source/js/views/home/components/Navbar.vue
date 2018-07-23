@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav :class="leftNavbar ? (openNavbar ? 'navbar right open' : 'navbar right hidden') : ''">
+        <nav :class="leftNavbar ? (openNavbar ? 'navbar right open' : 'navbar right hidden') : 'navbar'">
             <a :class="openNavbar ? 'navbar-caret open' : 'navbar-caret'" 
                 href="#" 
                 v-if="leftNavbar"
@@ -20,7 +20,7 @@
                 </li>
             </ul>
         </nav>
-        <img class="phone-logo" src="@img/brand/logo.svg" alt="Logo Mira Que Lindo">
+        <img class="phone-logo" src="@img/brand/logo.svg" alt="Logo Mira Que Lindo" v-if="phoneLogo">
     </div>
 </template>
 
@@ -48,9 +48,7 @@ export default {
         },
         screenPosition() {
             window.addEventListener('scroll', (event) => {
-                if(window.scrollY >= 300 || window.innerWidth < 780) {
-                    this.leftNavbar = true;
-                }
+                this.leftNavbar = (window.scrollY >= 300 || window.innerWidth < 780);
                 
                 var section;
                 var bounding;
