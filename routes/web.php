@@ -1,3 +1,5 @@
 <?php
 
-$app->get('/', 'HomeController@index');
+$app->get('/', 'Home\HomeController@index');
+
+$app->get('/admin', 'Admin\AdminController@index');

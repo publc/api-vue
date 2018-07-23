@@ -14,9 +14,6 @@ try {
     throw new Exception("Error Processing Request. \n Error: " . $e);
 };
 
-
-
-require_once '../routes/web.php';
-require_once '../routes/api.php';
+$app->import(['web', 'api']);
 
 $app->run();

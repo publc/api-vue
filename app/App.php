@@ -27,6 +27,20 @@ class App
         ]);
     }
 
+    public function import($files = array())
+    {
+        foreach ($files as $file) {
+            $file = '../routes/' . $file . '.php';
+            if (file_exists($file)) {
+                $app = $this;
+                require_once $file;
+            } else {
+                throw new \Exception("Error Processing Request. Routes File Not Found", 1);
+            }
+        }
+        return;
+    }
+
     public function get($uri, $handler, $method = 'GET')
     {
         $this->container->router->addRoute($uri, $handler, $method);
@@ -39,6 +53,11 @@ class App
         return $this;
     }
 
+    public function group($name)
+    {
+        //
+    }
+
     public function run()
     {
         $request = $this->container->request;
@@ -48,6 +67,7 @@ class App
 
         $this->container->router->setPath($_SERVER['REQUEST_URI'] ?? '/');
         $path = $this->container->router->getPath();
+
         $route = $this->container->router->getRoute();
 
         $processor = explode('/', $uri);
@@ -61,11 +81,22 @@ class App
 
     protected function processFile($uri)
     {
-        $exts = ['.js', '.css', '.ico', '.png', '.jpeg', '.svg', '.pdf'];
+        $exts = [
+            'application/javascript' => '.js',
+            'text/css' => '.css',
+            'text/ico' => '.ico',
+            'image/png' => '.png',
+            'image/jpg' => '.jpg',
+            'image/jpeg' => '.jpeg',
+            'image/svg' => '.svg',
+            'application/pdf' => '.pdf'];
 
-        foreach ($exts as $ext) {
+        foreach ($exts as $type => $ext) {
             if (strpos($uri, $ext) !== false) {
-                require_once '../source/assets' . $uri;
+                $this->container->response->addHeader('Content-Type', $type);
+                $this->container->response->addStatusCode(200);
+                $this->container->response->setHeaders();
+                require_once $uri;
                 exit;
             }
         }
@@ -77,7 +108,7 @@ class App
     {
         $requestMethod = $this->container->request->getMethod();
         if ($route === false || $requestMethod !== $route['method']) {
-            $this->response()->view('errors/404', 404)->loadView();
+            $this->response()->view('errors/404', 404)->send();
         }
 
         $params = $this->container->request->getWebParams($path, $route);

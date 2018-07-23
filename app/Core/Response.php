@@ -58,19 +58,19 @@ class Response
         exit;
     }
 
-    protected function addHeader($name, $value)
+    public function addHeader($name, $value)
     {
         $this->headers[] = [$name, $value];
         return $this;
     }
 
-    protected function addStatusCode($statusCode)
+    public function addStatusCode($statusCode)
     {
         $this->statusCode = $statusCode;
         return $this;
     }
 
-    protected function setHeaders()
+    public function setHeaders()
     {
         header(sprintf(
             '%s %s %s',
@@ -86,6 +86,16 @@ class Response
         }
 
         return $this;
+    }
+
+    public function mailTemplate($template, $data)
+    {
+        $file = '../source/views/mail/' . $template . '.template.php';
+        ob_start();
+        require_once $file;
+        $content = ob_get_clean();
+        ob_end_clean();
+        return $content;
     }
 
     protected function addBody($body)

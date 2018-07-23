@@ -24,7 +24,6 @@ class Router
         
         foreach ($this->routes as $uri => $route) {
             $params = $route['handler']['params'];
-            
             if (count($params) !== 0 && strpos($path, $uri) !== false) {
                 $path = $this->setPathWithParams($path, $uri, $params);
             }
