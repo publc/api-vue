@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'subject' => 'Nueva Consulta de Publc Framework',
     'responses' => [
         'ok' => [
             'errors' => false,

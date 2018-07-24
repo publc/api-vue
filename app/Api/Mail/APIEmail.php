@@ -40,12 +40,14 @@ class APIEmail extends Api
 
     protected function mailData($data)
     {
+        $subject = $this->config->get('subject', 'mail');
+
         $mailConfig = $this->config->get('mail');
 
         $this->mailer->FromName = $data->name;
         $this->mailer->AddAddress($mailConfig->from);
         $this->mailer->AddReplyTo($data->email);
-        $this->mailer->Subject = "Consulta Mira Que Lindo";
+        $this->mailer->Subject = $subject;
     }
 
     protected function mailBody($data)

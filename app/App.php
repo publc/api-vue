@@ -111,6 +111,10 @@ class App
             $this->response()->view('errors/404', 404)->send();
         }
 
+        if (is_callable($route['handler']['controller'])) {
+            return $route['handler']['controller']($this);
+        }
+
         $params = $this->container->request->getWebParams($path, $route);
         $handler = '\App\Http\Controller\\' . $route['handler']['controller'];
         $handler = new $handler();
@@ -128,7 +132,7 @@ class App
 
         $params = $this->container->request->getApiParams($path, $route);
         $handler = '\App\Api\\' . $route['handler']['controller'];
-        var_dump($handler);
+
         $handler = new $handler();
         $callable = $route['handler']['proccesor'];
 

@@ -49,6 +49,11 @@ class Route
 
     protected function setHandler($handler)
     {
+        if (is_callable($handler)) {
+            $this->controller = $handler;
+            return $this;
+        }
+
         $handler = explode('@', $handler);
         $this->controller = $handler[0];
         $this->processor = $handler[1];
