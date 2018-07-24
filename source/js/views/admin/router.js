@@ -1,5 +1,6 @@
 import Admin from "./Admin.vue";
 import Login from "./auth/Login.vue";
+import Register from "./auth/Register.vue";
 
 export default {
     routes: [
@@ -21,6 +22,11 @@ export default {
             path: '/login',
             name: 'login',
             component: Login
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: Register
         }
     ]
 };
