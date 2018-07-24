@@ -71,12 +71,12 @@ class App
         $route = $this->container->router->getRoute();
 
         $processor = explode('/', $uri);
-
+        
         if ($processor[1] === 'api') {
-            $this->processApi($path, $route);
+            return $this->processApi($path, $route);
         }
-
-        $this->processWeb($path, $route);
+        
+        return $this->processWeb($path, $route);
     }
 
     protected function processFile($uri)
@@ -125,17 +125,18 @@ class App
 
     protected function processApi($path, $route)
     {
+        
         if ($route === false) {
             echo $this->response()->json(['error' => 'Not Found'], 404);
             exit;
         }
-
+        
         $params = $this->container->request->getApiParams($path, $route);
         $handler = '\App\Api\\' . $route['handler']['controller'];
-
+        
         $handler = new $handler();
         $callable = $route['handler']['proccesor'];
-
+        
         return call_user_func_array([$handler, $callable], [$params]);
     }
 

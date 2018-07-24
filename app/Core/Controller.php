@@ -10,6 +10,7 @@ class Controller implements ControllerInterface
 {
     protected $app;
     protected $container;
+    protected $model;
 
     public function __construct()
     {
@@ -20,10 +21,15 @@ class Controller implements ControllerInterface
         ]);
 
         $this->app = $this->container->app;
-    }
 
-    public function index($data)
-    {
-        return $this->app->response()->view('home/home')->layout('home')->send();
+        if (empty($this->model)) {
+            $model = explode("\\", get_class($this));
+            $this->model = ucwords(str_replace("Controller", "", $model[count($model) - 1]));
+        }
+
+        $model = "\App\Http\Model\\" . ucwords($this->model);
+        if (class_exists($model)) {
+            $this->modelClass = new $model();
+        }
     }
 }

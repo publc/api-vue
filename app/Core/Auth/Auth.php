@@ -52,22 +52,27 @@ class Auth implements AuthInterface
         //
     }
 
-    public function register()
+    protected function register()
     {
         //
     }
 
-    public function updatePassword()
+    protected function updatePassword()
     {
         //
     }
 
-    public function remember()
+    protected function remember()
     {
         //
     }
 
-    public function rememberPassword()
+    protected function rememberPassword()
+    {
+        //
+    }
+
+    protected function logout()
     {
         //
     }

@@ -14,6 +14,7 @@ class Api implements APIInterface
     protected $mailer;
     protected $config;
     protected $container;
+    protected $model;
 
     public function __construct()
     {
