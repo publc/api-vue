@@ -3,16 +3,30 @@
 namespace App\Api\Auth;
 
 use App\Core\Api;
+use App\Api\Controller\AuthController;
 
 class APIAuth extends Api
 {
-    public function login()
+
+    protected $authController;
+
+    public function __construct()
     {
-        return $this->app->response()->json(['hello' => 'Say hello from login']);
+        parent::__construct();
+        $this->container->offsetSet('authController', function () {
+            return new AuthController();
+        });
+
+        $this->authController = $this->container->authController;
+    }
+
+    public function login($params)
+    {
+        //
     }
 
     public function register($params)
     {
-        return $this->app->response()->json(['hello' => 'Say hello from register']);
+        $var = $this->authController->register($params);
     }
 }

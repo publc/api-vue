@@ -4,6 +4,7 @@ namespace App;
 
 use App\Core\Request;
 use App\Core\Response;
+use App\Core\Validate;
 use App\Core\Container;
 use App\Core\Routing\Router;
 
@@ -23,6 +24,9 @@ class App
             },
             'response' => function () {
                 return new Response();
+            },
+            'validate' => function () {
+                return new Validate();
             }
         ]);
     }
@@ -125,8 +129,8 @@ class App
 
     protected function processApi($path, $route)
     {
-        
-        if ($route === false) {
+        $requestMethod = $this->container->request->getMethod();
+        if ($route === false || $requestMethod !== $route['method']) {
             echo $this->response()->json(['error' => 'Not Found'], 404);
             exit;
         }
@@ -148,5 +152,10 @@ class App
     public function view()
     {
         $this->container->response->send();
+    }
+
+    public function validate($params = [])
+    {
+        return $this->container->validate;
     }
 }

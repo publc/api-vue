@@ -22,14 +22,25 @@ class Controller implements ControllerInterface
 
         $this->app = $this->container->app;
 
+        $model = explode('\\', get_class($this));
+            
         if (empty($this->model)) {
-            $model = explode("\\", get_class($this));
             $this->model = ucwords(str_replace("Controller", "", $model[count($model) - 1]));
         }
 
-        $model = "\App\Http\Model\\" . ucwords($this->model);
-        if (class_exists($model)) {
-            $this->modelClass = new $model();
+        if ($model[1] === 'Api') {
+            $model = "\App\Api\Model\\" . ucwords($this->model);
+        } else {
+            $model = "\App\Http\Model\\" . ucwords($this->model);
         }
+
+        if (class_exists($model)) {
+            $this->model = new $model();
+        }
+    }
+
+    protected function model()
+    {
+        return $this->model;
     }
 }
