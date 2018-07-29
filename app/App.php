@@ -4,6 +4,7 @@ namespace App;
 
 use App\Core\Request;
 use App\Core\Response;
+use App\Core\Validate;
 use App\Core\Container;
 use App\Core\Routing\Router;
 
@@ -23,6 +24,9 @@ class App
             },
             'response' => function () {
                 return new Response();
+            },
+            'validate' => function () {
+                return new Validate();
             }
         ]);
     }
@@ -71,12 +75,11 @@ class App
         $route = $this->container->router->getRoute();
 
         $processor = explode('/', $uri);
-
+        
         if ($processor[1] === 'api') {
-            $this->processApi($path, $route);
+            return $this->processApi($path, $route);
         }
-
-        $this->processWeb($path, $route);
+        return $this->processWeb($path, $route);
     }
 
     protected function processFile($uri)
@@ -111,6 +114,10 @@ class App
             $this->response()->view('errors/404', 404)->send();
         }
 
+        if (is_callable($route['handler']['controller'])) {
+            return $route['handler']['controller']($this);
+        }
+
         $params = $this->container->request->getWebParams($path, $route);
         $handler = '\App\Http\Controller\\' . $route['handler']['controller'];
         $handler = new $handler();
@@ -121,16 +128,18 @@ class App
 
     protected function processApi($path, $route)
     {
-        if ($route === false) {
+        $requestMethod = $this->container->request->getMethod();
+        if ($route === false || $requestMethod !== $route['method']) {
             echo $this->response()->json(['error' => 'Not Found'], 404);
             exit;
         }
-
+        
         $params = $this->container->request->getApiParams($path, $route);
-        $handler = '\App\Api\Controller\\' . $route['handler']['controller'];
+        $handler = '\App\Api\\' . $route['handler']['controller'];
+        
         $handler = new $handler();
         $callable = $route['handler']['proccesor'];
-
+        
         return call_user_func_array([$handler, $callable], [$params]);
     }
 
@@ -142,5 +151,18 @@ class App
     public function view()
     {
         $this->container->response->send();
+    }
+
+    public function validate($source, $items)
+    {
+        $validate = $this->container->validate->check($source, $items);
+
+        if (!$validate->passed()) {
+            return $this->container->response->json([
+                'errors' => $validate->errors()
+            ], 400);
+        }
+
+        return $validate->passed();
     }
 }

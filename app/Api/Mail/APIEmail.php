@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Api\Controller;
+namespace App\Api\Mail;
 
-use App\Api\Api;
+use App\Core\Api;
 
-class EmailController extends Api
+class APIEmail extends Api
 {
 
     public function send($data)
@@ -13,39 +13,41 @@ class EmailController extends Api
         $this->mailData($data);
         $this->mailBody($data);
         
+        $config = $this->config->get('responses', 'mail');
+
         try {
             if ($this->mailer->Send()) {
                 return $this->app->response()->json([
-                    'errors' => true,
-                    'response' => 'Su correo fue enviado correctamente',
-                    'message' => 'Gracias por comunicarte con Mira Que Lindo, pronto nos comunicaremos contigo.'
+                    'errors' => $config->ok->errors,
+                    'response' => $config->ok->response,
+                    'message' => $config->ok->message
                 ]);
             }
 
             return $this->app->response()->json([
-                'errors' => false,
-                'response' => 'Ups! El correo no pudo ser enviado',
-                'message' => 'Te pedimos disculpas por las molestias que pueda generarte, 
-                            intenta comunicarte de nuevo mas tarde.'
+                'errors' => $config->fail->errors,
+                'response' => $config->fail->response,
+                'message' => $config->fail->message
             ]);
         } catch (\Exception $e) {
             return $this->app->response()->json([
-                'errors' => false,
-                'response' => 'Ups! El correo no pudo ser enviado',
-                'message' => 'Te pedimos disculpas por las molestias que pueda generarte, 
-                            intenta comunicarte de nuevo mas tarde.'
+                'errors' => $config->fail->errors,
+                'response' => $config->fail->response,
+                'message' => $config->fail->message
             ]);
         }
     }
 
     protected function mailData($data)
     {
+        $subject = $this->config->get('subject', 'mail');
+
         $mailConfig = $this->config->get('mail');
 
         $this->mailer->FromName = $data->name;
         $this->mailer->AddAddress($mailConfig->from);
         $this->mailer->AddReplyTo($data->email);
-        $this->mailer->Subject = "Consulta Mira Que Lindo";
+        $this->mailer->Subject = $subject;
     }
 
     protected function mailBody($data)
