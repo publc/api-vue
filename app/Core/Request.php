@@ -9,6 +9,11 @@ class Request
         return $_SERVER['REQUEST_METHOD'];
     }
 
+    public function parseRequestMethod()
+    {
+        return strtolower(trim($_SERVER['REQUEST_METHOD']));
+    }
+
     public function getUri()
     {
         return $_SERVER['REQUEST_URI'];
@@ -18,7 +23,6 @@ class Request
     {
         $method = $this->getMethod();
        
-
         if ($method === 'GET') {
             return $this->processGetParams($path, $route);
         }

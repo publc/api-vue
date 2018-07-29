@@ -12,6 +12,9 @@ class Validate
 
     public function check($source, $items = array())
     {
+        $this->processItems($items);
+        $source = (array) $source;
+
         foreach ($items as $item => $rules) {
             $value = $source[$item];
             $this->proccess($source, $item, $rules, $value);
@@ -32,6 +35,25 @@ class Validate
     public function passed()
     {
         return $this->passed;
+    }
+
+    protected function processItems(&$items)
+    {
+        
+        foreach ($items as $key => $item) {
+            $items[$key] = explode('|', $item);
+
+            $params = [];
+            foreach ($items[$key] as $element) {
+                $param = explode(':', $element);
+                if (empty($param[1])) {
+                    $params[$param[0]] = true;
+                    continue;
+                }
+                $params[$param[0]] = $param[1];
+                $items[$key] = $params;
+            }
+        }
     }
 
     protected function proccess($source, $item, $rules, $value)
@@ -66,7 +88,6 @@ class Validate
             $this->addError("{$item} is required");
             return;
         }
-        return true;
     }
 
     protected function min($value, $ruleValue, $item)
@@ -74,7 +95,6 @@ class Validate
         if (strlen($value) < $ruleValue) {
             $this->addError("{$item} must be a minimun of {$ruleValue} characters");
         }
-        return;
     }
 
     protected function max($value, $ruleValue, $item)
@@ -82,7 +102,6 @@ class Validate
         if (strlen($value) > $ruleValue) {
             $this->addError("{$item} must be a maximum of {$ruleValue} characters");
         }
-        return;
     }
 
     protected function matches($value, $source, $ruleValue, $item)
@@ -90,29 +109,33 @@ class Validate
         if ($value != $source[$ruleValue]) {
             $this->addError("{$item} must match {$ruleValue}");
         }
-        return;
     }
 
     protected function unique($value, $ruleValue, $item)
     {
-        if (!is_object($ruleValue)) {
-            $model = "\App\Http\Model\\" . ucwords($ruleValue);
-            
-            if (!class_exists($model)) {
-                $this->addError("No model for this validation");
-                return;
-            }
 
-            $model = new $model();
-        } else {
-            $model = $ruleValue;
+        $path = explode('->', $ruleValue);
+
+        foreach ($path as &$param) {
+            $param = ucwords($param);
         }
+
+        $path = implode('\\', $path);
+
+        $model = "\App\Http\Model\\" . $path;
+
+        if (!class_exists($model)) {
+            $this->addError("No model for this validation");
+            return;
+        }
+
+        $model = new $model();
         
         $check = $model->find($item, $value);
-        if ($check !== false) {
+
+        if (!is_null($check) || !empty($check)) {
             $this->addError("{$item} already exists");
         }
-        return;
     }
 
     protected function email($value, $item)
@@ -121,7 +144,6 @@ class Validate
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->addError("Invalid {$item}");
         }
-        return;
     }
 
     protected function addError($error)

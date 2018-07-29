@@ -79,7 +79,6 @@ class App
         if ($processor[1] === 'api') {
             return $this->processApi($path, $route);
         }
-        
         return $this->processWeb($path, $route);
     }
 
@@ -154,8 +153,16 @@ class App
         $this->container->response->send();
     }
 
-    public function validate($params = [])
+    public function validate($source, $items)
     {
-        return $this->container->validate;
+        $validate = $this->container->validate->check($source, $items);
+
+        if (!$validate->passed()) {
+            return $this->container->response->json([
+                'errors' => $validate->errors()
+            ], 400);
+        }
+
+        return $validate->passed();
     }
 }
