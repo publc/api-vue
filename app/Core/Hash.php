@@ -17,13 +17,10 @@ class Hash
         ]);
     }
 
-
-
     public function make($string)
     {
         $config = $this->container->config->get('hash');
-        $options = ["cost" => $config->cost];
-        return password_hash($string, $config->algo, $options);
+        return password_hash($string, $config->algo, [$config->cost]);
     }
 
     public function unique()

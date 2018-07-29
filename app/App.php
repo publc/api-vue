@@ -4,6 +4,7 @@ namespace App;
 
 use App\Core\Request;
 use App\Core\Response;
+use App\Core\Validate;
 use App\Core\Container;
 use App\Core\Routing\Router;
 
@@ -23,6 +24,9 @@ class App
             },
             'response' => function () {
                 return new Response();
+            },
+            'validate' => function () {
+                return new Validate();
             }
         ]);
     }
@@ -73,10 +77,10 @@ class App
         $processor = explode('/', $uri);
 
         if ($processor[1] === 'api') {
-            $this->processApi($path, $route);
+            return $this->processApi($path, $route);
         }
 
-        $this->processWeb($path, $route);
+        return $this->processWeb($path, $route);
     }
 
     protected function processFile($uri)
@@ -147,5 +151,18 @@ class App
     public function view()
     {
         $this->container->response->send();
+    }
+
+    public function validate($source, $items)
+    {
+        $validate = $this->container->validate->check($source, $items);
+
+        if (!$validate->passed()) {
+            return $this->container->response->json([
+                'errors' => $validate->errors()
+            ], 400);
+        }
+
+        return $validate->passed();
     }
 }
