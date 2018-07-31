@@ -3,13 +3,21 @@
 $app->get('/', 'Home\HomeController@index');
 
 $app->get('/admin', 'Admin\AdminController@index');
+$app->get('/admin/', 'Admin\AdminController@index');
 
 $app->get('/login', function ($app) {
     $app->response()->view('admin/home')->layout('home')->send();
 });
 
-$app->get('/register', function ($app) {
+$app->get('/admin/register', function ($app) {
     $app->response()->view('admin/home')->layout('home')->send();
 });
-
-$app->post('/register', 'Auth\AuthController@register');
+$app->get('/admin/seminars', function ($app) {
+    $app->response()->view('admin/home')->layout('home')->send();
+});
+$app->get('/admin/products', function ($app) {
+    $app->response()->view('admin/home')->layout('home')->send();
+});
+$app->get('/admin/users', function ($app) {
+    $app->response()->view('admin/home')->layout('home')->send();
+});

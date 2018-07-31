@@ -150,4 +150,27 @@ class Validate
     {
         $this->errors[] = $error;
     }
+
+    public function validateFile($params)
+    {
+        $files = $params->files;
+
+        if (empty($files)) {
+            return false;
+        }
+
+        $extentions = ['jpg', 'jpeg', 'png', 'svg'];
+
+        foreach ($files as $file) {
+            if ($file->error !== 0) {
+                return false;
+            }
+            
+            foreach ($extentions as $extention) {
+                if (strpos($file->type, $extention)) {
+                    return true;
+                }
+            }
+        }
+    }
 }

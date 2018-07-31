@@ -19,6 +19,11 @@ class Request
         return $_SERVER['REQUEST_URI'];
     }
 
+    public function getRoot()
+    {
+        return $_SERVER["DOCUMENT_ROOT"];
+    }
+
     public function getWebParams($path, $route)
     {
         $method = $this->getMethod();
@@ -41,7 +46,20 @@ class Request
         }
 
         if ($method === 'POST') {
-            return json_decode(file_get_contents('php://input'));
+            if (file_get_contents('php://input')) {
+                return json_decode(file_get_contents('php://input'));
+            }
+
+            if ($_POST) {
+                return json_decode(json_encode($_POST));
+            }
+        }
+    }
+
+    public function getApiFiles()
+    {
+        if ($_FILES) {
+            return json_decode(json_encode($_FILES));
         }
     }
 

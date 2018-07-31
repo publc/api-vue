@@ -11,6 +11,7 @@ class Controller implements ControllerInterface
 {
     protected $app;
     protected $container;
+    protected $file;
     protected $model;
 
     public function __construct()
@@ -21,11 +22,15 @@ class Controller implements ControllerInterface
             },
             'auth' => function () {
                 return new Auth();
+            },
+            'file' => function () {
+                return new File();
             }
         ]);
 
         $this->app = $this->container->app;
         $this->auth = $this->container->auth;
+        $this->file = $this->container->file;
 
         $this->setModel();
     }

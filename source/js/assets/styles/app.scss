@@ -1,7 +1,21 @@
-body {
-  background: red;
+$adminBg:#fafafa;
+$mainWhite: #fafafa;
+$errors: #D32F2F;
+$success: #558B2F;
+$link: #606060;
+$linkHover: #202020;
+$bgLinkMini: rgba(253, 182, 51, 0.95);
+
+
+
+@mixin flex($flow: row nowrap, $justify: center, $align: center) {
+  display: flex;
+  flex-flow: $flow;
+  justify-content: $justify;
+  align-items: $align;
 }
 
-div{
-  padding: 20px;
+@mixin container {
+  width: 90%;
+  margin: 0 auto;
 }

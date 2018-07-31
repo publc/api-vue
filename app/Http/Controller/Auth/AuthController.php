@@ -9,13 +9,24 @@ class AuthController extends Controller
 {
     protected $model = 'auth->user';
 
+    public function check()
+    {
+        $email = $this->auth->logged();
+
+        if (!$email) {
+            return $this->app->response()->json([
+                'error' => 'not logged user'
+            ], 400);
+        }
+    }
+
     public function login($params)
     {
         $this->app->validate($params, [
             'email' => 'required|email|max:45',
             'password' => 'required|min:6|max:45'
         ]);
-        
+
         $user = $this->model->find('email', $params->email);
 
         if (empty($user) || !password_verify($params->password, $user->password)) {
