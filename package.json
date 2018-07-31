@@ -1,7 +1,7 @@
 {
   "name": "mira-que-lindo",
   "version": "1.0.0",
-  "description": "Mira Que Lindo WebPage",
+  "description": "Fragancias Nya WebPage",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/publc/miniPubLC.git"
+    "url": "git+https://github.com/publc/api-vue.git"
   },
   "author": "deveplon",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/publc/miniPubLC/issues"
+    "url": "https://github.com/publc/api-vue/issues"
   },
-  "homepage": "https://github.com/publc/miniPubLC#readme",
+  "homepage": "https://github.com/publc/api-vue#readme",
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.52",
     "@babel/preset-env": "^7.0.0-beta.52",

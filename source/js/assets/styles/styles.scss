@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+//vars
+$shadow: #424242;
+$text: #212121;
+$white: #fafafa;
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto';
+    font-size: 16px;
+    overflow: hidden;
+}
+
+@mixin flex($flow: row nowrap, $justify: center, $align: center) {
+    display: flex;
+    flex-flow: $flow;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin link($color: #212121, $size: 1em, $padding: 7.5px 15px) {
+    text-decoration: none;
+    font-size: $size;
+    color: $color;
+    padding: $padding;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+@mixin container {
+    width: 90%;
+    margin: 0 auto;
+}

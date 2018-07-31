@@ -40,6 +40,7 @@ class Controller implements ControllerInterface
         if (is_null($this->model)) {
             $model = (new \ReflectionClass($this))->getShortName();
             $model = str_replace('Controller', '', $model);
+            $model = rtrim($model, 's');
             $model = 'App\Http\Model\\' . $model;
         } else {
             $path = explode('->', $this->model);
