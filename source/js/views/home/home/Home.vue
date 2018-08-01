@@ -10,38 +10,13 @@
                 <i class="fab fa-instagram"></i>
             </a>
         </div>
-        <div class="product" v-for="(product, i) in products" :key="i">
-            <p>{{ product.id }}</p>
-            <p>{{ product.name }}</p>
-            <p>{{ product.description }}</p>
-            <p>{{ product.image }}</p>
-            <p>{{ product.sku }}</p>
-        </div>
     </section>
 </template>
 
 <script>
 import axios from 'axios';
 export default {
-    data() {
-        return {
-            products: []
-        }
-    },
-    mounted() {
-        var vm = this;
-        axios.get('api/best_products', {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => {
-            vm.products = res.data.products
-        })
-        .catch(err => {
-            console.log(err);
-        }) 
-    }
+    
 }
 </script>
 
@@ -55,14 +30,15 @@ export default {
         height: 100vh;
         overflow: hidden;
 
-        .product {
-            display: block;
+        &::after {
+            content: '';
             position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 50px;
-            color: black;
-            z-index: 2000;
+            bottom: -30px;
+            left: 0;
+            display: block;
+            width: 100%;
+            height: 25px;
+            box-shadow: 0 -10px 20px 5px $white, 0 -30px 50px 5px $white;
         }
         
         .inner-bg {
@@ -104,8 +80,7 @@ export default {
             }
             
         }
-    }
-    
+    }   
     
 </style>
 

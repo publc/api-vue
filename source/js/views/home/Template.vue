@@ -2,6 +2,7 @@
     <div>
         <nya-header></nya-header>
         <nya-home></nya-home>
+        <nya-principal-products></nya-principal-products>
         <nya-products></nya-products>
         <nya-about></nya-about>
         <nya-contact></nya-contact>
@@ -11,6 +12,7 @@
 <script>
 import Header from '@cmp/Header.vue';
 import Home from './home/Home.vue';
+import PrincipalProducts from '@cmp/PrincipalProducts.vue';
 import Products from './products/Products.vue';
 import About from './about/About.vue';
 import Contact from './contact/Contact.vue';
@@ -18,6 +20,7 @@ export default {
     components: {
         'nya-header': Header,
         'nya-home': Home,
+        'nya-principal-products': PrincipalProducts,
         'nya-products': Products,
         'nya-about': About,
         'nya-contact': Contact,

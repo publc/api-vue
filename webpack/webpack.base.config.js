@@ -11,6 +11,7 @@ module.exports = {
       '@img': path.resolve(__dirname, '../source/js/assets/img'),
       '@styles': path.resolve(__dirname, '../source/js/assets/styles'),
       '@cmp': path.resolve(__dirname, '../source/js/components'),
+      '@publicImg': path.resolve(__dirname, '../public/img'),
     },
     extensions: ['.js', '.vue', '.scss']
   },
@@ -43,7 +44,7 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: '[name].[ext]',
-          outputPath: 'img/'
+          outputPath: 'img/brand/'
         }
       }
     ]
