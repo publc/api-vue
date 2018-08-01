@@ -12,7 +12,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@styles/app.scss'; 
     .button {
-        padding: 15px 30px;
+        padding: 10px 20px;
         border: 1px solid $bgLinkMini;
         border-radius: 20px;
         font-size: 1.4em;

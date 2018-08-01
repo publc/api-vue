@@ -10,4 +10,5 @@ $app->post('/api/update', 'APIAuth@patch');
 $app->post('/api/delete', 'APIAuth@destroy');
 
 
+$app->post('/api/seminars/show', 'APISeminars@show');
 $app->post('/api/seminars/put', 'APISeminars@put');

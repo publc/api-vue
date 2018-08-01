@@ -40,7 +40,7 @@ export default {
     },
     methods: {
         logout() {
-            axios.post('api/logout', this.formData, {
+            axios.post('/api/logout', this.formData, {
                 'Content-Type': 'application/json',
                 'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'
             })

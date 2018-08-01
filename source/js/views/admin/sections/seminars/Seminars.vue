@@ -2,7 +2,7 @@
     <div>
         <div class="container" v-if="$route.name === 'adminSeminars'">
             <mira-principal-btn :button="createButton"></mira-principal-btn>
-            <p>Sayyyyyyyy heloooooooo Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque quas doloribus cupiditate? Eaque doloremque at nam ducimus excepturi nostrum numquam reiciendis, tenetur distinctio ratione quo fugit quos quam tempore aliquam!</p>
+            <mira-show-seminars></mira-show-seminars>
         </div>
         <div class="container" v-else>
             <mira-principal-btn :button="backButton"></mira-principal-btn>
@@ -13,6 +13,7 @@
 
 <script>
 import PrincipalBtn from '../../components/PrincipalBtn.vue';
+import ShowSeminars from './ShowSeminars.vue';
 export default {
     data() {
         return {
@@ -21,7 +22,8 @@ export default {
         }
     },
     components: {
-        'mira-principal-btn': PrincipalBtn
+        'mira-principal-btn': PrincipalBtn,
+        'mira-show-seminars': ShowSeminars
     }
 }
 </script>
@@ -29,6 +31,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@styles/app.scss';    
     .container {
+        padding-top: 20px;
         @include container;
         @include flex(column nowrap, start, start);
     }

@@ -14,16 +14,16 @@ export default {
             path: "/admin",
             component: Admin,
             beforeEnter: (to, from, next) => {
-                axios.get('api/check', {
+                axios.get('/api/check', {
                     'Content-Type': 'application/json',
                     'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'
                 })
-                .then(() => {
+                .then(res => {
                     next();
                 })
-                .catch(() => {
+                .catch(err => {
                     next({path: '/login'});
-                });
+                });                
             },
             children: [
                 {path: 'register', name: 'register', component: Register}, 
@@ -32,7 +32,7 @@ export default {
                 {path: 'seminars', name: 'adminSeminars', component: AdminSeminars, children: [
                     {path: 'create', name: 'adminCreateSeminar', component: AdminCreateSeminar}
                 ]}, 
-                {path: 'users', name: 'adminUsers', component: AdminUsers}, 
+                {path: 'users', name: 'adminUsers', component: AdminUsers} 
             ]
         },
         {
@@ -40,7 +40,7 @@ export default {
             name: 'login',
             component: Login,
             beforeEnter: (to, from, next) => {
-                axios.get('api/check', {
+                axios.get('/api/check', {
                     'Content-Type': 'application/json',
                     'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'
                 })

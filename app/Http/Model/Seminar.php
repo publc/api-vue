@@ -6,6 +6,19 @@ use App\Core\Model;
 
 class Seminar extends Model
 {
+    public function show($params)
+    {
+        $queryParams = [];
+        $queryParams['order'] = [
+            'param' => 'date',
+            'order' => 'DESC'
+        ];
+        $queryParams['limit'] = 10;
+        $queryParams['offset'] = ($params->page - 1) * 10;
+
+        $this->setRequestParams($queryParams);
+        return $this->get();
+    }
 
     public function put($data, $files)
     {
