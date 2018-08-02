@@ -15,7 +15,14 @@ import Product from './components/Product.vue';
 export default {
     data() {
         return {
-            products: []
+            products: [],
+            paginate: {},
+            page: 1,
+        }
+    },
+    computed: {
+        limit() {
+            return window.innerWidth < 780 ? 4 : 8;
         }
     },
     components: {
@@ -23,13 +30,16 @@ export default {
     },    
     mounted() {
         var vm = this;
-        axios.get('api/products', {
+        axios.post('api/products', { page: this.page, limit: this.limit}, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
         .then(res => {
+            console.log(res.data.products);
+            console.log(res.data.paginate);
             vm.products = res.data.products;
+            vm.paginate = res.data.paginate;
         })
         .catch(err => {
             console.log(err);
@@ -45,25 +55,34 @@ export default {
         top: -200px;
         left: 0;
         width: 100%;
-        padding: 5% 0;
-        background-color: $border;
+        padding: 10% 0;
+        background-color: $mainBg;
 
-        &::after {
+        &::before, &::after {
             content: '';
             position: absolute;
-            top: -30px;
             left: 0;
             display: block;
             width: 100%;
             height: 25px;
+        }
+
+         &::before {
+            top: -30px;
             box-shadow: 0 10px 20px 5px $white, 0 30px 50px 5px $white;
+        }
+
+        &::after {
+            bottom: -30px;
+            box-shadow: 0 -10px 20px 5px $white, 0 -30px 50px 5px $white;
         }
 
         .gallery {
             width: 90%;
             margin: 0 auto;
-            padding: 20px 40px;
+            padding: 40px 40px;
             border: 1px solid rgba($border, .4);
+            border-radius: 5px;
             box-shadow: 0 0 3px rgba($border, .4);
             @include flex(row wrap, space-around, space-around);
             background-color: $white;

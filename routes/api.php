@@ -8,5 +8,5 @@ $app->post('/api/logout', 'Auth\APIAuth@logout');
 $app->post('/api/update', 'Auth\APIAuth@patch');
 $app->post('/api/delete', 'Auth\APIAuth@destroy');
 
-$app->get('/api/products', 'APIProducts@get');
+$app->post('/api/products', 'APIProducts@get');
 $app->get('/api/best_products', 'APIProducts@getBest');

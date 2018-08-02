@@ -43,6 +43,11 @@ class Model
         $this->db = $this->container->db;
     }
 
+    protected function count()
+    {
+        return $this->db->count($this->table);
+    }
+
     protected function get()
     {
         $this->proccessGet();

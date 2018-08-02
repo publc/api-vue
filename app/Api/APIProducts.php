@@ -8,12 +8,13 @@ class APIProducts extends Api
 {
     protected $controller;
 
-    public function get()
+    public function get($params)
     {
-        $products = $this->controller->get();
+        $response = $this->controller->get($params);
         $this->app->response()->json([
             'code' => 1,
-            'products' => $products
+            'products' => $response->products,
+            'paginate' => $response->paginate
         ]);
     }
 
