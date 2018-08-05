@@ -46,8 +46,9 @@ export default {
             height: 100vh;
             background-image: url('~@img/brand/pr-bg.jpg');
             background-size: cover;
+            background-position: center;
             background-attachment: fixed;
-            animation: bg-scale 20s ease-in-out infinite;
+            animation: bg-scale 20s ease-in-out forwards;
         }
 
         @keyframes bg-scale {
@@ -58,7 +59,7 @@ export default {
 
         .title {
             position: absolute;
-            bottom: 10%;
+            bottom: 20%;
             right: 5%;
             font-size: 2.6em;
             font-weight: 500;

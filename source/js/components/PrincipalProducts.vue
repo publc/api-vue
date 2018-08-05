@@ -46,6 +46,7 @@ export default {
 
         .image {
             width: 30%;
+            min-width: 200px;
         }
     }
 </style>
