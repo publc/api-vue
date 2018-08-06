@@ -5,6 +5,7 @@ import AdminHome from "./Home.vue";
 import AdminProducts from "./sections/products/Products.vue";
 import AdminSeminars from "./sections/seminars/Seminars.vue";
 import AdminCreateSeminar from "./sections/seminars/CreateSeminar.vue";
+import AdminEditSeminar from "./sections/seminars/EditSeminar.vue";
 import AdminUsers from "./sections/users/Users.vue";
 import axios from 'axios';
 
@@ -30,7 +31,8 @@ export default {
                 {path: '', name: "adminHome", component: AdminHome},
                 {path: 'products', name: "adminProducts", component: AdminProducts},
                 {path: 'seminars', name: 'adminSeminars', component: AdminSeminars, children: [
-                    {path: 'create', name: 'adminCreateSeminar', component: AdminCreateSeminar}
+                    {path: 'create', name: 'adminCreateSeminar', component: AdminCreateSeminar},
+                    {path: 'edit', name: 'adminEditSeminar', props: true, component: AdminEditSeminar},
                 ]}, 
                 {path: 'users', name: 'adminUsers', component: AdminUsers} 
             ]

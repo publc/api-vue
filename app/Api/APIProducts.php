@@ -4,16 +4,16 @@ namespace App\Api;
 
 use App\Core\Api;
 
-class APISeminars extends Api
+class APIProducts extends Api
 {
-    protected $controller = 'seminars';
+    protected $controller = 'products';
 
     public function show($params)
     {
         $data = $this->controller->show($params);
         return $this->app->response()->json([
             'code' => 1,
-            'seminars' => $data->seminars,
+            'products' => $data->products,
             'paginate' => $data->paginate
         ]);
     }
@@ -23,25 +23,17 @@ class APISeminars extends Api
         $this->controller->put($params);
         return $this->app->response()->json([
             'code' => 1,
-            'message' => 'seminar successfully created'
+            'message' => 'product successfully created'
         ]);
     }
 
     public function view($params)
     {
-        $seminars = $this->controller->view();
+        $data = $this->controller->view($params);
         return $this->app->response()->json([
             'code' => 1,
-            'seminars' => $seminars
-        ]);
-    }
-
-    public function patch($params)
-    {
-        $this->controller->patch($params);
-        return $this->app->response()->json([
-            'code' => 1,
-            'message' => 'seminar successfully updated'
+            'products' => $data->products,
+            'paginate' => $data->paginate
         ]);
     }
 

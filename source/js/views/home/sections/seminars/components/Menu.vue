@@ -2,14 +2,10 @@
     <div class="nav">
         <h3 class="title">Proximos Seminarios</h3>
         <ul class="menu">
-            <li class="menu-item">
-                <a class="menu-link" href="#">Agosto</a>
-            </li>
-            <li class="menu-item">
-                <a class="menu-link" href="#">Septiembre</a>
-            </li>
-            <li class="menu-item">
-                <a class="menu-link" href="#">Octubre</a>
+            <li class="menu-item" v-for="(monthToShow, i) in monthsToShow" :key="i">
+                <a :class="i == month ? 'menu-link active' : 'menu-link'" 
+                href="#"
+                @click.prevent="$emit('changeMonth', i)">{{ monthsToShow[i] }}</a>
             </li>
         </ul>
     </div>
@@ -17,7 +13,18 @@
 
 <script>
 export default {
-    
+    props: ['month', 'months'],
+    computed: {
+        monthsToShow() {
+            var strMonths = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+            var monthsToShow = {};
+            this.months.forEach(month => {
+                monthsToShow[month] = strMonths[month];
+            });
+            return monthsToShow;
+        }
+    }
 }
 </script>
 
@@ -64,9 +71,9 @@ export default {
                     text-decoration: none;
                     color: #606060;
                     transition: color .3s ease-out, 
-                        background-color .3s ease-out;
+                    background-color .3s ease-out;
 
-                    &:hover {
+                    &:hover, &.active {
                         background-color:rgba(253, 182, 51, 0.95);
                         color: #fafafa;
                         font-weight: 600;

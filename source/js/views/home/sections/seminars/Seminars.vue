@@ -1,17 +1,31 @@
 <template>
     <section class="seminars" rel="seminars-section--js">
-        <mira-menu class="left-box" rel="seminar-left-box--js"></mira-menu>
-        <mira-seminar class="right-box" rel="seminar-right-box--js"></mira-seminar>
+        <div class="left-box">
+            <mira-menu :month="month" :months="months" 
+                @changeMonth="month = $event"></mira-menu>
+        </div>
+        <div class="right-box">
+            <mira-seminar v-for="(seminar, i) in seminarsToShow" :key="i" :seminar="seminar"></mira-seminar>
+        </div>        
     </section>
 </template>
 
 <script>
 import Seminar from './components/Seminar.vue';
 import Menu from './components/Menu.vue';
+import axios from 'axios';
 export default {
     data() {
         return {
-
+            seminarsByMonth: [],
+            month: null,
+            months: []
+        }
+    },
+    computed: {
+        seminarsToShow() {
+            var seminars = this.seminarsByMonth[this.month];
+            return seminars;
         }
     },
     components: {
@@ -19,10 +33,51 @@ export default {
         'mira-menu': Menu
     },
     mounted() {
-        var rightBox = document.querySelector('[rel=seminar-right-box--js]');
-        var leftBox = document.querySelector('[rel=seminar-left-box--js]');
+        var setDate = new Date();
+        this.month = setDate.getMonth();
+        var vm = this;
+        axios.get('api/seminars/view', {
+            headers: {
+                'Content-Type': 'application/json',
+                'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'
+            }
+        })
+        .then(res => {
+                var seminars = res.data.seminars;
+                var date;
+                var seconds;
+                var minutes;
+                var hour;
+                var year;
+                var month;
+                var realMonth;
+                var day;
+                var months = [];
 
-        leftBox.style.height = rightBox.clientHeight + 'px';
+                var seminarsByMonth = {};
+                seminars.forEach(seminar => {
+                    date = new Date(seminar.date * 1000);
+                    seconds = date.getSeconds();
+                    minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+                    hour = date.getHours();
+                    year = date.getFullYear();
+                    month = date.getMonth();                    
+                    realMonth = month + 1;
+                    day = date.getDate();
+
+                    if(typeof(seminarsByMonth[month]) === 'undefined') {
+                        seminarsByMonth[month] = [];
+                    }
+                    seminar.date = `${day}/${realMonth}/${year} - ${hour}:${minutes}`;
+                    seminarsByMonth[month].push(seminar);
+                    months.push(month);
+                });
+                vm.seminarsByMonth = seminarsByMonth;
+                vm.months = months;
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
 }
 </script>
@@ -30,6 +85,7 @@ export default {
 
 
 <style lang="scss" scoped>
+@import '~@styles/app.scss';
     .seminars {
         position: relative;
         top: 50px;
@@ -46,6 +102,8 @@ export default {
         .right-box {
             width: 82.5%;
             height: 100%;
+            min-height: 50vh;
+            @include flex(column nowrap);
         }
     }
 </style>

@@ -45,8 +45,9 @@ class Model
 
     protected function count()
     {
-        $this->stmt = 'SELECT count(*) FROM ' . $this->table;
-        return $this->db->execute();
+        $this->stmt = 'SELECT count(id) FROM ' . $this->table;
+        $this->db->query($this->stmt);
+        return $this->db->count();
     }
 
     protected function get()

@@ -17,6 +17,9 @@ $app->get('/admin/seminars', function ($app) {
 $app->get('/admin/seminars/create', function ($app) {
     $app->response()->view('admin/home')->layout('home')->send();
 });
+$app->get('/admin/seminars/edit', function ($app) {
+    $app->response()->view('admin/home')->layout('home')->send();
+});
 $app->get('/admin/products', function ($app) {
     $app->response()->view('admin/home')->layout('home')->send();
 });

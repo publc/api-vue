@@ -1,46 +1,56 @@
 <template>
-    <div class="seminar">
-        <img src="@img/brand/logo.svg" alt="Mira Que Lindo" class="logo">
-        <h2 class="title">Taller de Mosaiquismo</h2>
-        <p class="subtitle">Sobre bandejas</p>
-        <div class="body">
-            <div class="left-box">
-                <p class="knowledge">“No necesitas tener conocimientos previos”</p>
-                <p class="expositor">Dictado por Karina Pizzi</p>
-                <p class="place">Gral. Alvear 718, Martinez</p>
-                <p class="place_phone">(011) 4792-5606</p>
-            </div>
-            <div class="right-box">
-                <p class="date">Sábado 02/06 10:30 hs.</p>       
-                
-                <div class="images">
-                    <div class="images-group">
-                        <div class="img-container">
-                            <img src="@img/seminars/images/bandeja_izq.jpg" class="image" alt="image">
-                        </div>
-                        <p class="description">Bandeja de cama</p>
-                    </div>
-                    <div class="images-group">
-                        <div class="img-container">
-                            <img src="@img/seminars/images/bandeja_der.jpg" class="image" alt="image">
-                        </div>
-                        <p class="description">Bandeja Ovalada</p>
-                    </div>
+    <transition name="fade-slide" :appear="true" mode="out-in">
+        <div class="seminar" :key="seminar.id">
+            <img src="@img/brand/logo.svg" alt="Mira Que Lindo" class="logo">
+            <h2 class="title">{{ seminar.title }}</h2>
+            <p class="subtitle">{{ seminar.subtitle }}</p>
+            <div class="body">
+                <div class="left-box">
+                    <p class="knowledge">"{{ seminar.knowledge }}"</p>
+                    <p class="expositor">{{ seminar.expositor }}</p>
+                    <p class="place">{{ seminar.place }}</p>
+                    <p class="place_phone">{{ seminar.contact }}</p>
                 </div>
-                <p class="limited">Cupos Limitados</p>
+                <div class="right-box">
+                    <p class="date">{{ seminar.date }}</p>       
+                    
+                    <div class="images">
+                        <div class="images-group">
+                            <div class="img-container">
+                                <img :src="'/img/seminars/' + seminar.image_left" class="image" alt="image">
+                            </div>
+                            <p class="description">{{ seminar.image_left_title }}</p>
+                        </div>
+                        <div class="images-group">
+                            <div class="img-container">
+                                <img :src="'/img/seminars/' + seminar.image_right" class="image" alt="image">
+                            </div>
+                            <p class="description">{{ seminar.image_right_title }}</p>
+                        </div>
+                    </div>
+                    <p class="limited">{{ limited }}</p>
                 </div>
             </div>
-    </div>
+        </div>
+    </transition>
 </template>
 
 <script>
 export default {
-    
+    props: ['seminar'],
+    computed: {
+        limited() {
+            return this.seminar.limited == '1' ? 'Cupos limitados' : 'Cupos ilimitados';
+        }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '~@styles/app.scss';
+
     .seminar {
+        position: relative;
         width: 100%;
         background: #fdfdfd;
         border-radius: 5px;
@@ -49,8 +59,8 @@ export default {
         .logo {
             height: 60px;
             position: absolute;
-            top: 100px;
-            right: 80px;
+            top: 20px;
+            right: 20px;
         }
 
         .title {
@@ -167,8 +177,16 @@ export default {
                 }
             }
         }
+    }
 
-        
+    .fade-slide-enter-active, .fade-slide-leave-active {
+        transition: opacity .25s, transform .5s ease-in-out;
+        transform: rotateY(0deg);
+    }
+
+    .fade-slide-enter, .fade-slide-leave-to {
+        opacity: 0.5;
+        transform: rotateY(90deg);
     }
 </style>
 

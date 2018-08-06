@@ -9,7 +9,7 @@
                 <span></span>
             </a>
             <div class="logo">
-                <img src="@img/brand/logo.svg" alt="Logo Mira Que Lindo">
+                <img src="/img/brand/logo.svg" alt="Logo Mira Que Lindo">
             </div>
             <li class="nav-item" v-for="(link, i) in links" :key="i">
                 <router-link 

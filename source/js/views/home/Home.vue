@@ -6,6 +6,7 @@
         <mira-products></mira-products>
         <mira-about></mira-about>
         <mira-contact></mira-contact>
+        <mira-footer></mira-footer>
         <mira-contact-btn class="contact-btn" rel="contact-btn--js"></mira-contact-btn>
     </div>
 </template>
@@ -17,6 +18,7 @@ import Seminars from './sections/seminars/Seminars.vue';
 import Products from './sections/products/Products.vue';
 import About from './sections/about/About.vue';
 import Contact from './sections/contact/Contact.vue';
+import Footer from './components/Footer.vue';
 import ContactBtn from './components/Contact.vue';
 export default {
     components: {
@@ -26,6 +28,7 @@ export default {
         'mira-products': Products,
         'mira-about': About,
         'mira-contact': Contact,
+        'mira-footer': Footer,
         'mira-contact-btn': ContactBtn
     },
     mounted() {

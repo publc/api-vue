@@ -5,7 +5,7 @@
                 {{ message }}
             </div>
         </transition>
-        <h2 class="title">cargar seminarios</h2>
+        <h2 class="title">Editar Seminario</h2>
         <form action="#" class="form" @submit.prevent="submit">
             <div class="left-form">
                 <div class="form-item" v-for="(input, i) in inputs" :key="i">
@@ -85,19 +85,21 @@
 <script>
 import axios from 'axios';
 export default {
+    props: ['seminar'],
     data() {
         return {
             inputData: {
-                title: null,
-                subtitle: null,
-                place: null,
-                knowledge: null,
-                expositor: null,
-                contact: null,
-                date: null,
-                image_left_title: null,
-                image_right_title: null,
-                limited: false
+                id: this.seminar.id,
+                title: this.seminar.title,
+                subtitle: this.seminar.subtitle,
+                place: this.seminar.place,
+                knowledge: this.seminar.knowledge,
+                expositor: this.seminar.expositor,
+                contact: this.seminar.contact,
+                date: this.seminar.date,
+                image_left_title: this.seminar.image_left_title,
+                image_right_title: this.seminar.image_right_title,
+                limited: this.seminar.limited
             },
             inputErrors: {
                 title: null,
@@ -109,7 +111,7 @@ export default {
                 date: null,
                 image_left_title: null,
                 image_right_title: null,
-                limited: null
+                limited: false
             },
             formData: new FormData(),
             dataToSend: null,
@@ -119,7 +121,7 @@ export default {
                 {label: 'place', title: 'Lugar:', type: 'text', placeholder: 'Lugar del seminario'},
                 {label: 'knowledge', title: 'Conocimientos:', type: 'text', placeholder: 'Conocimientos Necesarios'},
                 {label: 'expositor', title: 'Expositor:', type: 'text', placeholder: 'Expositor del seminario'},
-                {label: 'contact', title: 'Contacto:', type: 'text', placeholder: 'Contacto (Tel|Email)'},
+                {label: 'contact', title: 'Contact:', type: 'text', placeholder: 'Contacto (Tel|Email)'},
                 {label: 'date', title: 'Fecha:', type: 'datetime-local', placeholder: 'Fecha del seminario dd/mm/YY'}
             ],
             waitingSubmit: false,
@@ -142,7 +144,7 @@ export default {
                 var vm = this;
 
                 this.waitingSubmit = true;
-                axios.post('/api/seminars/put', this.dataToSend, {
+                axios.post('/api/seminars/patch', this.dataToSend, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'
@@ -176,10 +178,9 @@ export default {
         },
         validate() {
             var validate = true;
-            Object.keys(this.inputData).forEach( key => {                
+            Object.keys(this.inputData).forEach( key => {
                 this.inputErrors[key] = null;
-
-                if (!this.inputData[key] && key !== 'limited') {
+                if (!this.inputData[key]  && key !== 'limited') {
                     this.inputErrors[key] = 'El campo es requerido para continuar';
                 }
 
@@ -198,6 +199,7 @@ export default {
     .main {
         @include container;
         @include flex(column nowrap, start, start);
+        padding-bottom: 50px;
 
         .title {
             font-size: 1.8em;

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form :class="showForm ? 'contact-form open' : 'contact-form'" 
+        <form class="contact-form" 
             action="#" 
             @submit.prevent="submitForm"
             rel="form--js">
@@ -38,9 +38,6 @@
             <h3 class="response">{{ response }}</h3>
             <p class="aux-message">{{ auxMessage }}</p>
         </div>
-        <a class="contact-btn-form" href="#" @click.prevent="showContactForm">
-            <i class="fas fa-plus"></i>
-        </a>
     </div>
 </template>
 
@@ -49,7 +46,6 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            showForm: false,
             formData: {
                 name: '',
                 phone: '',
@@ -64,9 +60,6 @@ export default {
         }
     },
     methods: {
-        showContactForm() {
-            this.showForm = !this.showForm;
-        },
         submitForm() {
             this.waitSendMail = true;
             axios.post('api/email', this.formData)
@@ -99,56 +92,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .contact-btn-form {
-        width: 35px;
-        height: 35px;
-        position: absolute;
-        right: 0;
-        bottom: 2%;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        font-size: 1.2em;
-        color: #fafafa;
-        background-color: rgba(253, 182, 51, 0.95);
-        border-radius: 50%;
-        z-index: 2500;
-        transition: transform .4s ease-out;
-        animation: contact-btn 5s 3s infinite ease-out; 
-
-        &:hover {
-            transform: scale(1.15);
-        }
-    }
-
-    @keyframes contact-btn {
-        0% { transform: scale(1) }
-        10% { transform: scale(1.15) }
-        90% { transform: scale(1.15) }
-        100% { transform: scale(1) }
-    }
-
+    
     .contact-form {
         display: block;
-        width: 0;
-        height: 0;
-        margin-right: 20px;
-        margin-bottom: 30px;
+        width: 80%;
+        max-width: 450px;
+        margin: 0 auto;
+        padding: 20px 30px;
         background-color: #fafafa;
-        padding: 0;
         border-top-right-radius: 10px;
         border-bottom-left-radius: 10px;
         transition: width .8s ease-in-out, height 1s ease-in-out, padding .8s ease-in-out;
         overflow: hidden;
-        z-index: 2000;
-
-        &.open {
-            width: 350px;
-            height: 440px;
-            padding: 20px 15px;
-        }
 
         .form-item {
             min-width: 250px;
@@ -243,16 +198,17 @@ export default {
     }
 
     .send-mail {
-        width: 350px;
-        height: 0;
+        width: 80%;
+        max-width: 450px;
         position: absolute;
         top: 0;
+        right: 50%;
+        transform: translateX(50%);
+        height: 0;
         display: flex;
         flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
-        margin-right: 20px;
-        margin-bottom: 30px;
         background-color: #2c3e50;
         color: #fafafa;
         padding: 0;
