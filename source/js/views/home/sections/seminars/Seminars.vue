@@ -89,11 +89,8 @@ export default {
     .seminars {
         position: relative;
         top: 50px;
-        padding-top: 50px; 
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: start;
-        align-items: start;
+        padding-top: 50px;
+        @include flex (row nowrap, start, start);
 
         .left-box {
             width: 15%;
@@ -104,6 +101,27 @@ export default {
             height: 100%;
             min-height: 50vh;
             @include flex(column nowrap);
+        }
+    }
+
+    @media screen and (max-width: 780px) {
+        .seminars {
+            position: relative;
+            top: 50px;
+            padding-top: 50px;
+            @include flex (column nowrap, center, center);
+
+            .left-box {
+                width: 50%;
+                margin: 0 auto;
+            }
+
+            .right-box {
+                width: 100%;
+                height: 100%;
+                min-height: 50vh;
+                @include flex(column nowrap);
+            }
         }
     }
 </style>

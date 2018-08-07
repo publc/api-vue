@@ -52,4 +52,44 @@
             }
         }
     }
+
+    @media screen and (max-width: 780px) {
+        .footer {
+            
+            .networks {
+
+                .facebook, .instagram {
+                    top: 70%;
+                }
+
+                .facebook {
+                    left: 25%;
+                }
+
+                .instagram {
+                    right: 25%;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 350px) {
+        .footer {
+            
+            .networks {
+
+                .facebook, .instagram {
+                    top: 70%;
+                }
+
+                .facebook {
+                    left: 5%;
+                }
+
+                .instagram {
+                    right: 5%;
+                }
+            }
+        }
+    }
 </style>

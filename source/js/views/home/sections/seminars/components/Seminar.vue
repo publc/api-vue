@@ -188,6 +188,82 @@ export default {
         opacity: 0.5;
         transform: rotateY(90deg);
     }
+
+    @media screen and (max-width: 780px) {
+        .seminar {
+
+            .logo {
+                height: 40px;
+                top: 10px;
+                right: 10px;
+            }
+
+            .title {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1.5em;
+            }
+
+            .body {
+                flex-flow: column nowrap;
+                justify-content: center;
+                margin-top: 40px;
+                padding-left: 20px;
+
+                .left-box {
+                    width: 100%;
+
+                    .knowledge {
+                        font-size: 1.1em;
+                    }
+
+                    .expositor, .place, .place_phone {
+                        font-size: 1.1em;
+                    }
+
+                }
+
+                .right-box {
+                    width: 100%;
+                    margin-top: 0;
+                    margin-bottom: 30px;
+
+                    .date {
+                        font-size: 2em;
+                    }
+
+                    .limited {
+                        font-size: 1.2em;
+                    }
+
+                    .images {
+                        display: flex;
+                        flex-flow: column nowrap;
+                        justify-content: center;
+                        align-items: center;
+
+                        .images-group {
+
+                            .img-container {
+                                width: 100px;
+                                height: 100px;
+                            }
+
+                            .description {
+                                max-width: 90px;
+                                padding-left: 20px;
+                                margin: 0;
+                                font-size: 1em;
+                            }
+                            
+                        }      
+                    }
+                }
+            }
+        }
+    }
 </style>
 
 

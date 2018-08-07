@@ -56,4 +56,15 @@ export default {
             }
         }
     }
+
+    @media screen and (max-width: 500px) {
+        .categories-menu {
+
+            .category-link {
+                min-width: 200px;
+                max-width: 200px;
+                height: 110px;
+            }
+        }
+    }
 </style>

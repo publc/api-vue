@@ -37,6 +37,19 @@ class Product extends Model
         return $this->get();
     }
 
+    public function countByCategory($params)
+    {
+        $queryParams = [];
+        $queryParams['filters'] = [
+            'filter' => 'category',
+            'op' => '=',
+            'value' => $params->category
+        ];
+        $this->setRequestParams($queryParams);
+        $this->get();
+        return $this->rowCount();
+    }
+
     public function find($filter, $value)
     {
         $params = [];

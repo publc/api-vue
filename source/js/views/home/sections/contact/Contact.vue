@@ -76,4 +76,49 @@ export default {
             }
         }
     }
+
+    @media screen and (max-width: 780px) {
+        .contact {
+            top: 250px;
+            @include flex(column wrap, center, center);
+            margin-bottom: 100px;
+
+            .contact-right {
+                width: 100%;
+            }
+
+            .contact-left {
+                width: 100%;
+
+                .text {
+                    font-size: 1.5em;
+                }
+
+                .logo {
+                    top: -80%;
+                }
+
+                .butter {
+                    position: absolute;
+                    display: block;
+                    width: 10%;
+                }
+
+                .butter-1 {
+                    top: -50%;
+                    left: 70%;
+                }
+
+                .butter-2 {
+                    bottom: -120%;
+                    left: 55%;
+                }
+
+                .butter-3 {
+                    top: -40%;
+                    left: 20%;
+                }
+            }
+        }
+    }
 </style>

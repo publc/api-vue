@@ -40,7 +40,7 @@ class ProductsController extends Controller
     public function view($params)
     {
         $products = $this->model->view($params);
-        $total = $this->model->count($params);
+        $total = $this->model->countByCategory($params);
         $max_page = ceil($total / $params->limit);
         $prevPage = $params->page === 1 ? null : $params->page - 1;
         $nextPage = ($params->page + 1) > $max_page ? null : $params->page + 1;

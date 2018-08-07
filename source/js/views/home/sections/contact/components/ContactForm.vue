@@ -253,6 +253,15 @@ export default {
     }
 
     @media screen and (max-width: 780px) {
+        .contact-form {
+            width: 100%;
+            max-width: 300px;
+
+            .form-item {
+                min-width: 200px;
+            }
+        }
+
         .contact-btn {
             bottom: 10%;
         }

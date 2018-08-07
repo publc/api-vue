@@ -10,7 +10,8 @@
                 v-else
                 :products="products"
                 :paginate="paginate"
-                @backToCategories="backToCategories($event)"></mira-product-products>
+                @backToCategories="backToCategories($event)"
+                @changePage="changePage($event)"></mira-product-products>
             </div>
         </div>
     </section>
@@ -47,6 +48,10 @@ export default {
         backToCategories(event) {
             this.showCategories = event.show;
         },
+        changePage(event) {
+            this.dataToSend.page = event.page;
+            this.getCategoryProducts();
+        },
         getCategoryProducts() {
             var vm = this;
             axios.post('/api/products/view', this.dataToSend, {
@@ -65,6 +70,10 @@ export default {
         }
     },
     mounted() {
+        if(window.innerWidth < 780) {
+            this.dataToSend.limit = 4
+        }
+
         this.getCategoryProducts();
     }
 }

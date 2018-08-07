@@ -26,16 +26,16 @@
                 </div>
             </form>
             <div class="buttons">
-                <a href="#" class="confirm"
-                    @click.prevent="submit"
-                    v-if="!waitingSubmit">Confirmar</a>
-                <div class="animated-response" v-else>
+                <div class="animated-response" v-if="waitingSubmit">
                     <div class="circles">
                         <span></span>
                         <span></span>
                         <span></span>
                     </div>
                 </div>
+                <a href="#" class="confirm"
+                    @click.prevent="submit"
+                    v-else>Confirmar</a>
                 <a href="#" class="cancel" 
                     @click.prevent="$emit('confirmCreate', {show: false})">Cancelar</a>
             </div>
@@ -78,7 +78,6 @@ export default {
             })
             .then(res => {
                 vm.message = 'Se han guardado los elementos con exito.';
-                vm.waitingSubmit = false;
                 setTimeout(() => {
                     vm.message = false;
                     this.$emit('confirmCreate', {show: false})
@@ -87,7 +86,6 @@ export default {
             .catch(err => {
                 vm.message = 'Ups no pudimos guardar la información intenta nuevamente.';
                 vm.responseError = true;
-                vm.waitingSubmit = false;
                 setTimeout(() => {
                     vm.message = false;
                     vm.responseError = false;
@@ -180,6 +178,47 @@ export default {
         
             .cancel {
                 @include tableBtn($errors, $mainWhite, 1.1em);
+            }
+
+            .animated-response {
+                width: 100%;
+                height: 40px;
+                @include flex;
+
+                .circles {
+                    width: 100px;
+                    @include flex(row nowrap, space-around, center);
+                    
+                    span {
+                        display: block;
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 50%;
+                        background-color: #2c3e50;
+
+                        &:nth-child(1) {
+                            background: #2c3e50;
+                            animation: slide-up 1s infinite linear;
+                        }
+
+                        &:nth-child(2) {
+                            background: #2c3e50;
+                            animation: slide-up 1s .3s infinite linear;
+                        }
+
+                        &:nth-child(3) {
+                            background: #2c3e50;
+                            animation: slide-up 1s .6s infinite linear;
+                        }
+
+                        @keyframes slide-up {
+                            0% { transform: translateY(0) }
+                            25% { transform: translateY(-5px) }
+                            75% { transform: translateY(5px) }
+                            100% { transform: translateY(0) }
+                        }
+                    }                
+                }
             }
         }
     }

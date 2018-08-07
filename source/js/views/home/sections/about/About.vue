@@ -1,7 +1,7 @@
 <template>
     <section class="about" rel="about-section--js">
-        <div class="about-content" v-if="showContent">
-            <p>Mira Que Lindo surge hace unos años cuando ser mama ocupaba el 100% de mi tiempo… mi primer hijo arranco el jardín y me pregunté… Que hago ahora? El 1er año de Joaqui en el jardín me recibí de profe de pilates… Estudié marketing a través de le web y como quería más empecé a ir a diferentes seminarios… Aprendi a hacer tapicería, me metí de lleno con el decoupage sobre todas las superficies, aprendi a hacer lamparas, aprendi mosaiquismo… Desde chica que soy emprendedora y busco aprender todo el tiempo. Siento que tengo la virtud de transformar y me encanta contarles a los demás todo lo que aprendí y aprendo a diario…</p>
+        <div class="about-content">
+            <p class="content-principal">Mira Que Lindo surge hace unos años cuando ser mama ocupaba el 100% de mi tiempo… mi primer hijo arranco el jardín y me pregunté… Que hago ahora? El 1er año de Joaqui en el jardín me recibí de profe de pilates… Estudié marketing a través de le web y como quería más empecé a ir a diferentes seminarios… Aprendi a hacer tapicería, me metí de lleno con el decoupage sobre todas las superficies, aprendi a hacer lamparas, aprendi mosaiquismo… Desde chica que soy emprendedora y busco aprender todo el tiempo. Siento que tengo la virtud de transformar y me encanta contarles a los demás todo lo que aprendí y aprendo a diario…</p>
             <p>Siento que el Arte se debe pasar de boca en boca para que quien lo desee lo pueda hacer</p>
             <p>Soy una mujer con ganas de mostrar y enseñar su arte.</p>
             <p>Ser ArteSana es tener la virtud de hacer</p>
@@ -75,5 +75,19 @@ export default {
 
     .slide-right-enter, .slide-right-leave-to {
         opacity: 0;
+    }
+
+    @media screen and (max-width: 780px){
+        .about {
+            @include flex(column wrap, center, center);
+
+            .about-image {
+                width: 60%;
+            }
+
+            .content-principal {
+                display: none;
+            }
+        }
     }
 </style>

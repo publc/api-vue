@@ -50,6 +50,11 @@ class Model
         return $this->db->count();
     }
 
+    protected function rowCount()
+    {
+        return $this->db->rowCount();
+    }
+
     protected function get()
     {
         $this->proccessGet();
