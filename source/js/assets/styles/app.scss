@@ -1,0 +1,96 @@
+$adminBg:#fafafa;
+$mainWhite: #fafafa;
+$mainBlack: #212121;
+$errors: #D32F2F;
+$success: #558B2F;
+$link: #606060;
+$linkHover: #202020;
+$bgLinkMini: rgba(253, 182, 51, 0.95);
+$primaryBtn: #006064;
+
+
+@mixin flex($flow: row nowrap, $justify: center, $align: center) {
+  display: flex;
+  flex-flow: $flow;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+@mixin actionBtn($bgColor: $primaryBtn, $color: $mainWhite, $fontSize: 1.1em, $padding: 20px 10px) {
+  padding: $padding;
+  color: $color;
+  background-color: $bgColor;
+  font-size: $fontSize;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .25s ease-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+@mixin tableBtn($bgColor: $primaryBtn, $color: $mainWhite, $fontSize: .9em, $padding: 2.5px 15px) {
+  padding: $padding;
+  color: $bgColor;
+  background-color: transparent;
+  border: 1px solid $bgColor;
+  border-radius: 20px;
+  font-size: $fontSize;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .3s ease-out;
+
+  &:hover {
+    background-color: $bgColor;
+    color: $color;
+  }
+}
+
+@mixin animatedResponse {
+  .animated-response {
+    width: 100%;
+    height: 40px;
+    @include flex;
+
+    .circles {
+        width: 100px;
+        @include flex(row nowrap, space-around, center);
+        
+        span {
+            display: block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #2c3e50;
+
+            &:nth-child(1) {
+                background: #2c3e50;
+                animation: slide-up 1s infinite linear;
+            }
+
+            &:nth-child(2) {
+                background: #2c3e50;
+                animation: slide-up 1s .3s infinite linear;
+            }
+
+            &:nth-child(3) {
+                background: #2c3e50;
+                animation: slide-up 1s .6s infinite linear;
+            }
+
+            @keyframes slide-up {
+                0% { transform: translateY(0) }
+                25% { transform: translateY(-5px) }
+                75% { transform: translateY(5px) }
+                100% { transform: translateY(0) }
+            }
+        }                
+    }
+  }
+}

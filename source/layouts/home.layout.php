@@ -7,17 +7,17 @@
     <title>Api-Vue</title>
     <!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
     <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/app.css">
     <link as="script" href="/js/app.js" rel="preload">
-    <link rel="stylesheet" 
-    href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
-     integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <style>
+        @import url("https://fonts.googleapis.com/css?family=Indie+Flower");
         * {
             box-sizing: border-box;
         }
         body {
-            font-size: 16px;
-            font-family: 'Arial'
+            font-size: 14px;
+            font-family: 'Indie-Flower'
         }
     </style>
 </head>

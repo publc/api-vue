@@ -10,10 +10,10 @@ class Config
             return;
         }
 
-        $config = require '../config/app.php';
+        $config = require __DIR__ . '/../../config/app.php';
 
         if (!is_null($file)) {
-            $config = require '../config/' . $file . '.php';
+            $config = require __DIR__ . '/../../config/' . $file . '.php';
         }
         
         $path = explode('.', $path);

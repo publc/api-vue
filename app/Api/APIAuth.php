@@ -10,9 +10,13 @@ class APIAuth extends Api
 {
     protected $controller = 'auth->auth';
 
-    public function get($params)
+    public function check($params)
     {
-        $this->validate($params);
+        $this->controller->check();
+        $this->response([
+            'code' => 1,
+            'message' => 'user logged in'
+        ]);
     }
 
     public function login($params)

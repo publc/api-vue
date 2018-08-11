@@ -43,6 +43,18 @@ class Model
         $this->db = $this->container->db;
     }
 
+    protected function count()
+    {
+        $this->stmt = 'SELECT count(id) FROM ' . $this->table;
+        $this->db->query($this->stmt);
+        return $this->db->count();
+    }
+
+    protected function rowCount()
+    {
+        return $this->db->rowCount();
+    }
+
     protected function get()
     {
         $this->proccessGet();
@@ -163,7 +175,7 @@ class Model
 
     private function prepareOrders()
     {
-        if (count($this->order) === 2) {
+        if (is_array($this->order) && count($this->order) === 2) {
             $this->stmt .= ' ORDER BY t.' . $this->order['param'] . ' ' . $this->order['order'];
         }
     }

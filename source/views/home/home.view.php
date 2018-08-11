@@ -4,3 +4,5 @@
 
 <div id="app"></div>
 
+<h1><?php echo $data["vero"]; ?></h1>
+

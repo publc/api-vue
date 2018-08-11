@@ -135,6 +135,11 @@ class App
         }
         
         $params = $this->container->request->getApiParams($path, $route);
+        if (!is_object($params)) {
+            $params = new \stdClass();
+        }
+        $files = $this->container->request->getApiFiles();
+        $params->files = $files;
         $handler = '\App\Api\\' . $route['handler']['controller'];
         
         $handler = new $handler();

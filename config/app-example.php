@@ -55,6 +55,6 @@ return [
         ]
     ],
     'protocol_response' => [
-        '404' => '../views/protocols/404.php'
+        '404' => __DIR__ . '/../views/protocols/404.php'
     ]
 ];

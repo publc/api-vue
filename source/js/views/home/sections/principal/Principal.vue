@@ -1,5 +1,5 @@
 <template>
-    <h1>Login</h1>
+    <h1>Welcome to API manager with PHP and Vue</h1>
 </template>
 
 <script>

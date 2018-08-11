@@ -28,13 +28,13 @@ class APIEmail extends Api
                 'errors' => $config->fail->errors,
                 'response' => $config->fail->response,
                 'message' => $config->fail->message
-            ]);
+            ], 400);
         } catch (\Exception $e) {
             return $this->app->response()->json([
                 'errors' => $config->fail->errors,
                 'response' => $config->fail->response,
                 'message' => $config->fail->message
-            ]);
+            ], 400);
         }
     }
 
