@@ -28,7 +28,7 @@ class Seminar extends Model
             'op' => '>=',
             'value' => time()
         ];
-        $this->setRequestParams($queryParams);
+        $this->setRequestParams($params);
         return $this->get();
     }
 

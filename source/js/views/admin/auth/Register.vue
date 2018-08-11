@@ -1,3 +1,14 @@
 <template>
-    <h1>This is the register Form</h1>
+    <h1></h1>
 </template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+
+</style>
+

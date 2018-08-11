@@ -62,11 +62,6 @@ class Product extends Model
         return $this->findOne();
     }
 
-    public function count()
-    {
-        return parent::count();
-    }
-
     public function put($data, $files)
     {
         $params = [];

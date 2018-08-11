@@ -54,9 +54,9 @@ export default {
         },
         getCategoryProducts() {
             var vm = this;
-            axios.post('/api/products/view', this.dataToSend, {
+            axios.post('api/products/view', this.dataToSend, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
+                    'Content-Type': 'application/json',
                     'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'                    
                 }
             })
@@ -74,7 +74,20 @@ export default {
             this.dataToSend.limit = 4
         }
 
-        this.getCategoryProducts();
+        var vm = this;
+        axios.post('api/products/view', this.dataToSend, {
+            headers: {
+                'Content-Type': 'application/json',
+                'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'                    
+            }
+        })
+        .then(res => {
+            vm.products = res.data.products;
+            vm.paginate = res.data.paginate;
+        })
+        .catch(err => {
+            console.log(err);
+        })
     }
 }
 </script>

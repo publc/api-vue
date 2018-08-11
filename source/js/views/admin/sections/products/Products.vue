@@ -23,6 +23,14 @@
                         <a href="#" class="delete-button" 
                             @click.prevent="confirmDeleteProduct(product.id)">eliminar</a>
                     </div>
+                    <div class="pagination">
+                        <a class="paginate-link left" href="#"
+                            @click.prevent="prev">anterior</a>
+                        <a class="paginate-number" href="#"
+                            @click.prevent>{{paginate.current_page}}</a>
+                        <a class="paginate-link right" href="#"
+                            @click.prevent="next">siguiente</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,7 +47,7 @@ export default {
             heads: ['id', 'photo', ''],
             categories: ['mosaiquismo', 'tapiceria', 'decoupage', 'seminarios'],
             showCreate: false,
-            dataToSend: {category: 'mosaiquismo', page: 1, limit: 10},
+            dataToSend: {category: 'mosaiquismo', page: 1, limit: 4},
             products: [],
             paginate: {},
             modal: {
@@ -69,16 +77,44 @@ export default {
             var vm = this;
             axios.post('/api/products/show', this.dataToSend, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
+                    'Content-Type': 'application/json',
                     'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'
                 }
             })
             .then(res => {
                 vm.products = res.data.products;
+                vm.paginate = res.data.paginate;
+                console.log(res.data.paginate);
             })
             .catch(err => {
                 console.log(err);
             })
+        },
+        next() {
+            var page = this.dataToSend.page;
+            var limit = this.dataToSend.limit;
+            var paginate = this.paginate;
+
+            if (paginate.next_page === null || page + 1 > paginate.next_page) {
+                return;
+            }
+
+            this.dataToSend.page += 1;
+
+            this.sendGetCategory();
+        },
+        prev() {
+            var page = this.dataToSend.page;
+            var limit = this.dataToSend.limit;
+            var paginate = this.paginate;
+
+            if (paginate.prev_page === null || page - 1 < paginate.prev_page) {
+                return;
+            }
+
+            this.dataToSend.page -= 1;
+
+            this.sendGetCategory();
         },
         deleteProduct(id) {
             var vm = this;
@@ -210,6 +246,45 @@ export default {
 
                         .delete-button {
                             @include tableBtn($errors);
+                        }
+                    }
+
+                    .pagination {
+                        width: 80%;
+                        margin: 0 auto;
+                        padding-top: 40px;
+                        @include flex(row nowrap, flex-end);
+
+                        .paginate-link {
+                            text-decoration: none;
+                            color: $link;
+                            padding: 5px 15px;
+                            border: 1px solid rgba($link, .2);
+                            transition: background-color .25s ease-out;
+
+                            &.left {
+                                border-top-left-radius: 5px;
+                                border-bottom-left-radius: 5px;
+                            }
+
+                            &.right {
+                                border-top-right-radius: 5px;
+                                border-bottom-right-radius: 5px;
+                            }
+
+                            &:hover {
+                                background-color: rgba($link, .8);
+                                color: $mainWhite;
+                            }
+                        }
+
+                        .paginate-number {
+                            cursor: default;
+                            text-decoration: none;
+                            color: $link;
+                            padding: 5px 15px;
+                            border: 1px solid rgba($link, .2);
+                            transition: background-color .25s ease-out;
                         }
                     }                    
                 }

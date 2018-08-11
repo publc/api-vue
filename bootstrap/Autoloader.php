@@ -11,7 +11,7 @@ class Autoloader
             $class = explode("\\", $class);
             $class[0] = strtolower($class[0]);
             $class = implode("/", $class);
-            $file =  "../" . $class . '.php';
+            $file =  __DIR__ . "/../" . $class . '.php';
             if (file_exists($file)) {
                 require $file;
                 return true;

@@ -4,10 +4,14 @@ $app->post('/api/email', 'Mail\APIEmail@send');
 
 $app->get('/api/check', 'APIAuth@check');
 $app->post('/api/login', 'APIAuth@login');
-$app->post('/api/register', 'APIAuth@register');
 $app->post('/api/logout', 'APIAuth@logout');
 $app->post('/api/update', 'APIAuth@patch');
 $app->post('/api/delete', 'APIAuth@destroy');
+
+
+$app->post('/api/users/show', 'APIUsers@show');
+$app->post('/api/users/destroy', 'APIAuth@destroy');
+$app->post('/api/users/register', 'APIAuth@register');
 
 
 $app->get('/api/seminars/view', 'APISeminars@view');

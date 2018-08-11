@@ -49,12 +49,12 @@ class Response
         $data = $this->data;
 
         if (!$this->layout) {
-            require_once '../source/views/' . $this->view . '.view.php';
+            require_once __DIR__ . '/../../source/views/' . $this->view . '.view.php';
             exit;
         }
 
-        $view = '../source/views/' . $this->view . '.view.php';
-        require_once '../source/layouts/' . $this->layout . '.layout.php';
+        $view = __DIR__ . '/../../source/views/' . $this->view . '.view.php';
+        require_once __DIR__ . '/../../source/layouts/' . $this->layout . '.layout.php';
         exit;
     }
 
@@ -90,7 +90,7 @@ class Response
 
     public function mailTemplate($template, $data)
     {
-        $file = '../source/views/mail/' . $template . '.template.php';
+        $file = __DIR__ . '/../../source/views/mail/' . $template . '.template.php';
         ob_start();
         require_once $file;
         $content = ob_get_clean();

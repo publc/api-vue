@@ -28,7 +28,7 @@ class AuthController extends Controller
         ]);
 
         $user = $this->model->find('email', $params->email);
-
+        
         if (empty($user) || !password_verify($params->password, $user->password)) {
             return $this->app->response()->json([
                 'error' => 'bad user credentials provided'
@@ -49,15 +49,15 @@ class AuthController extends Controller
         
         $params->password = $this->auth->hash($params->password);
         unset($params->confirm_password);
-        $put = $this->model->put($params);
+        unset($params->files);
 
-        if ($put !== true) {
+        try {
+            return $this->model->put($params);
+        } catch (\PDOException $e) {
             return $this->app->response()->json([
-                'error' => $put
+                'error' => $e->getMessage()
             ], 400);
         }
-
-        return $this->auth->login($params);
     }
 
     public function logout()
@@ -96,8 +96,7 @@ class AuthController extends Controller
     public function destroy($params)
     {
         $this->app->validate($params, [
-            'email' => 'required|email|max:45',
-            'password' => 'required|min:6|max:45'
+            'email' => 'required|email|max:45'
         ]);
 
         $email = $this->auth->logged();
@@ -110,7 +109,7 @@ class AuthController extends Controller
 
         $user = $this->model->find('email', $email);
 
-        if (empty($user) || !password_verify($params->password, $user->password)) {
+        if (empty($user)) {
             return $this->app->response()->json([
                 'error' => 'bad user credentials provided'
             ], 400);

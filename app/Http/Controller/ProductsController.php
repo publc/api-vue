@@ -17,7 +17,7 @@ class ProductsController extends Controller
         }
         
         $products = $this->model->show($params);
-        $total = $this->model->count($params);
+        $total = $this->model->countByCategory($params);
         $max_page = ceil($total / $params->limit);
 
         $prevPage = $params->page === 1 ? null : $params->page - 1;

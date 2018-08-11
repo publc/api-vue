@@ -69,29 +69,36 @@ export default {
         },
         submitForm() {
             this.waitSendMail = true;
+            var vm = this;
             axios.post('api/email', this.formData)
                 .then((res) => {
-                    this.waitSendMail = false;
-                    this.sendMail = true;
-                    this.response = res.data.response;
-                    this.auxMessage = res.data.message;
+                    vm.waitSendMail = false;
+                    vm.sendMail = true;
+                    vm.response = res.data.response;
+                    vm.auxMessage = res.data.message;
                     
                     if (res.data.errors === true) {
-                        this.erorrs = true;
+                        vm.errors = true;
                     }
 
                     setTimeout(() => {
-                        this.sendMail = false;
-                        this.erorrs = false;
-                        this.response = '';
-                        this.auxMessage = '';
-                        this.showForm = false;
+                        vm.sendMail = false;
+                        vm.errors = false;
+                        vm.response = '';
+                        vm.auxMessage = '';
+                        vm.showForm = false;
                     }, 3500);
                 })
-                .catch(error => {
-                    this.erorrs = true;
-                    this.response = 'No se pudo enviar el correo';
-                    this.auxMessage = 'Tenemos problemas de comunicación. Por favor intenta de nuevo mas tarde';
+                .catch(err => {
+                    vm.waitSendMail = false;
+                    vm.sendMail = true;
+                    vm.errors = true;
+
+                    setTimeout(() => {
+                        vm.sendMail = false;
+                        vm.errors = false;
+                        vm.showForm = false;
+                    }, 3500);
                 });
         }
     }
@@ -115,19 +122,10 @@ export default {
         background-color: rgba(253, 182, 51, 0.95);
         border-radius: 50%;
         z-index: 2500;
-        transition: transform .4s ease-out;
-        animation: contact-btn 5s 3s infinite ease-out; 
 
         &:hover {
             transform: scale(1.15);
         }
-    }
-
-    @keyframes contact-btn {
-        0% { transform: scale(1) }
-        10% { transform: scale(1.15) }
-        90% { transform: scale(1.15) }
-        100% { transform: scale(1) }
     }
 
     .contact-form {
@@ -229,13 +227,6 @@ export default {
                     &:nth-child(3) {
                         background: #2c3e50;
                         animation: slide-up 1s .6s infinite linear;
-                    }
-
-                    @keyframes slide-up {
-                        0% { transform: translateY(0) }
-                        25% { transform: translateY(-5px) }
-                        75% { transform: translateY(5px) }
-                        100% { transform: translateY(0) }
                     }
                 }                
             }

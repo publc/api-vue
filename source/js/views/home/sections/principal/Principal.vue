@@ -72,17 +72,10 @@ export default {
             position: absolute;
             bottom: 2%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, 0);
             text-decoration: none;
             font-size: 2.7em;
             color: #202020;
-            animation: go-down 3s 1s infinite;
-        }
-
-        @keyframes go-down {
-            0% { color: #202020; transform: translateY(-50%, 0)}
-            50% { color: rgba(32, 32, 32, 0.9); transform: translate(-50%, -10px)}
-            100% { color: #202020; transform: translateY(-50%, 0) }
         }
     }
 

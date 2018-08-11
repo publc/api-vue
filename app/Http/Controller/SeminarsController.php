@@ -2,7 +2,6 @@
 
 namespace App\Http\Controller;
 
-
 use DateTime;
 use App\Core\Controller;
 

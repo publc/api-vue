@@ -55,25 +55,30 @@ export default {
                 var months = [];
 
                 var seminarsByMonth = {};
-                seminars.forEach(seminar => {
-                    date = new Date(seminar.date * 1000);
-                    seconds = date.getSeconds();
-                    minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
-                    hour = date.getHours();
-                    year = date.getFullYear();
-                    month = date.getMonth();                    
-                    realMonth = month + 1;
-                    day = date.getDate();
+                if(seminars instanceof Array && seminars.lenght > 1) {
+                    seminars.forEach(seminar => {
+                        date = new Date(seminar.date * 1000);
+                        seconds = date.getSeconds();
+                        minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+                        hour = date.getHours();
+                        year = date.getFullYear();
+                        month = date.getMonth();                    
+                        realMonth = month + 1;
+                        day = date.getDate();
 
-                    if(typeof(seminarsByMonth[month]) === 'undefined') {
-                        seminarsByMonth[month] = [];
-                    }
-                    seminar.date = `${day}/${realMonth}/${year} - ${hour}:${minutes}`;
-                    seminarsByMonth[month].push(seminar);
-                    months.push(month);
-                });
-                vm.seminarsByMonth = seminarsByMonth;
-                vm.months = months;
+                        if(typeof(seminarsByMonth[month]) === 'undefined') {
+                            seminarsByMonth[month] = [];
+                        }
+
+                        seminar.date = `${day}/${realMonth}/${year} - ${hour}:${minutes}`;
+                        seminarsByMonth[month].push(seminar);
+                        months.push(month);
+                    });
+                    vm.seminarsByMonth = seminarsByMonth;
+                    vm.months = months;
+                }
+
+                
         })
         .catch(err => {
             console.log(err);

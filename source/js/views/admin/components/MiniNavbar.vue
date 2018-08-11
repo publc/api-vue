@@ -73,6 +73,7 @@ export default {
         background-color: $adminBg;
         @include flex(row nowrap, start, start);
         transition: transform .5s ease-out;
+        z-index: 2000;
 
         &.open {
             transform: translateX(-220px);
