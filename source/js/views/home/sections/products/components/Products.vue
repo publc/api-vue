@@ -37,7 +37,7 @@ export default {
             var gallery = document.querySelector('[rel=product--js]');
             gallery.style.minHeight = '355px';
         }
-
+        console.log(this.paginate);
         this.innactiveCaretLeft = this.paginate.prev_page === null;
         this.innactiveCaretRight = this.paginate.next_page === null;
     },

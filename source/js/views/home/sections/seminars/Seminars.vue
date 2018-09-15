@@ -53,9 +53,8 @@ export default {
                 var realMonth;
                 var day;
                 var months = [];
-
                 var seminarsByMonth = {};
-                if(seminars instanceof Array && seminars.lenght > 1) {
+                if(seminars instanceof Array && seminars.length >= 1) {
                     seminars.forEach(seminar => {
                         date = new Date(seminar.date * 1000);
                         seconds = date.getSeconds();

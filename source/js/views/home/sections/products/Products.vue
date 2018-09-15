@@ -40,21 +40,22 @@ export default {
         'mira-product-products': Products
     },
     methods: {
-        productsToShow(event) {
-            this.showCategories = event.show;
+        async productsToShow(event) {
             this.dataToSend.category = event.category;
-            this.getCategoryProducts();
+            await this.getCategoryProducts();
+            this.showCategories = event.show;
         },
         backToCategories(event) {
+            this.dataToSend.page = 1;
             this.showCategories = event.show;
         },
         changePage(event) {
             this.dataToSend.page = event.page;
             this.getCategoryProducts();
         },
-        getCategoryProducts() {
+        async getCategoryProducts() {
             var vm = this;
-            axios.post('api/products/view', this.dataToSend, {
+            await axios.post('api/products/view', this.dataToSend, {
                 headers: {
                     'Content-Type': 'application/json',
                     'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'                    
@@ -67,6 +68,8 @@ export default {
             .catch(err => {
                 console.log(err);
             })
+
+            return;
         }
     },
     mounted() {
